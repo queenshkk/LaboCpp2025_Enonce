@@ -1,10 +1,10 @@
 #include <iostream>
 #include "Model.h"
 #include "Car.h"
-
 using namespace carconfig;
 
 // Tests de base de la classe Car (sans les options)
+
 
 int main()
 {
@@ -47,7 +47,7 @@ int main()
       c2.setName("Projet_208GTi_MrLepresse_bis");
       c2.display();
     }
-    std::cout << "c1 (APRES) :" << std::endl;
+   std::cout << "c1 (APRES) :" << std::endl;
     c1.display();
   }
 

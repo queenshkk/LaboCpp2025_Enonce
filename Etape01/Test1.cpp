@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
-// #include "Model.h"
+#include "Model.h"
+
 
 // Quelques conseils avant de commencer...
 // * N'oubliez pas de tracer (cout << ...) tous les constructeurs et le destructeur !!! Ca, c'est pas un conseil,
@@ -14,19 +15,21 @@ using namespace std;
 //   de la classe, le .cpp contenant la definition des methodes, et ensuite le makefile permettant de compiler
 //   le tout grace a la commande make 
 
+
 int main()
 {
   cout << endl << "(1) ***** Test constructeur par defaut + display ************************" << endl;
   {
-    Model model;
-    model.display();
-  } // La presence des accolades assure que le destructeur de Model sera appele --> a tracer !
+    Model model; //On instancie la classe et on passe par on constructeur (on appelle le constructeur : c'est une méthode qui porte le même nom que la classe elle meme)
+    model.display(); //On fait appel à une méthode.
+  } // La presence des accolades assure que le destructeur de Model sera appele --> a tracer ! // On libère l'espace
+
 
   cout << endl << "(2) ***** Test des setters et getters ***********************************" << endl;
   {
-    Model model;
-    model.setName("208 Active 1.5 BlueHDi 5P");
-    model.setPower(100);
+    Model model; //Instanciation de la classe Model
+    model.setName("208 Active 1.5 BlueHDi 5P"); //Méthodes d'instances. Il faudra les définir les get dans Model.h pour exécuter le code. Du coup on doit définit les 4 setup et 4getup
+    model.setPower(100);//Ce sont des appels dees methodes SET
     model.setEngine(Engine::Diesel);
     model.setBasePrice(21800.0f);
     model.display();
@@ -34,11 +37,11 @@ int main()
     cout << "Puissance    = " << model.getPower() << " Ch" << endl;
     cout << "Moteur       = " << model.getEngine() << endl;
     cout << "Prix de base = " << model.getBasePrice() << " euros" << endl;
-  }
+  } //Destructeur sera appelé
 
   cout << endl << "(3) ***** Test du constructeur d'initialisation *************************" << endl;
   {
-    Model model("308 Allure 1.6 Hybrid 5P",150,Engine::Hybrid,38650.0f);
+    Model model("308 Allure 1.6 Hybrid 5P",150,Engine::Hybrid,38650.0f); //Instanciation de la classe model, je réserve l'espace mémoire. Il y a des parenthèses avec le constructeur d'initialisation poru recevoir les valeurs
     model.display();
   }
 
@@ -69,6 +72,7 @@ int main()
     cout << "Le prix de base de ce model est : " << p->getBasePrice() << " euros" << endl;
     delete p;
   }
+  
 
   cout << endl << "(6) ***** Test d'allocation dynamique (constructeur de copie) ***********" << endl;
   {
@@ -83,6 +87,6 @@ int main()
     cout << "model1 (APRES) :" << endl;
     model1.display();
   }
-
+  
   return 0;
 }
