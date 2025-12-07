@@ -1,17 +1,22 @@
 #include <iostream>
-using namespace std;
 
 #include "Person.h"
 #include "Client.h"
 #include "Employee.h"
 
+
+using namespace std;
+
+
+
+
 int  Menu();
 void Essai1();
-/*void Essai2();
+void Essai2();
 void Essai3();
 void Essai4();
 void Essai5();
-void Essai6();*/
+void Essai6();
 
 int main()
 {
@@ -25,12 +30,12 @@ int main()
     switch(choix)
     {
       case 1 : Essai1(); break;
-      /*case 2 : Essai2(); break;
+      case 2 : Essai2(); break;
       case 3 : Essai3(); break;
       case 4 : Essai4(); break;
       case 5 : Essai5(); break;
       case 6 : Essai6(); break;
-      default : fini = true ; break;*/
+      default : fini = true ; break;
     }
   }
 
@@ -101,7 +106,7 @@ void Essai1()
 // A FAIRE : la classe abstraite Actor qui hérite de Person et qui possède un id (int)
 //           et les deux méthodes virtuelles pures tuple() et toString()
 //           la classe Client qui herite de Actor, contenant en plus un numero de gsm (string)
-/*void Essai2()
+void Essai2()
 {
   cout << "----- 2.1 Test du constructeur par defaut ----------------------------------" << endl;
   Client c1;
@@ -148,13 +153,13 @@ void Essai1()
   cout << "--> Execution du code c3 = c2; :" << endl;
   c3 = c2;
   cout << "--> c3 = " << c3 << endl;
-}*/
+}
 
 /***********************************************************************************************/
 // A FAIRE : la classe Employee qui herite de Actor
 //           contenant en plus une fonction (string), un login (string) et un mot de passe (string)
 //           deux variables statiques constantes SELLER et ADMINISTRATIVE
-/*void Essai3()
+void Essai3()
 {
   cout << "----- 3.1 Test du constructeur par defaut ----------------------------------" << endl;
   Employee e1;
@@ -212,12 +217,12 @@ void Essai1()
   cout << "--> Execution du code e3 = e2; :" << endl;
   e3 = e2;
   cout << "--> e3 = " << e3 << endl;
-}*/
+}
 
 /******************************************************************************************/
 // A FAIRE : normalement rien dans vos classes...
 //           juste comprendre et tester le code ci-dessous
-/*void Essai4()
+void Essai4()
 {
   srand((unsigned)time(NULL));
 
@@ -256,12 +261,12 @@ void Essai1()
   cout << "----- 4.3 Liberation memoire ----------------------------------------------------------------------------" << endl;
   for (int i=0 ; i<10 ; i++) delete actors[i];  // Tout se passe-t-il comme vous voulez ?
   // Pour etre plus precis, quid des destructeurs et de la virtualite ?
-}*/
+}
 
 /*********************************************************************************************/
 // A FAIRE : normalement rien dans vos classes...
 //           juste comprendre et tester le code ci-dessous
-/*void Essai5()
+void Essai5()
 {
   srand((unsigned)time(NULL));
 
@@ -306,11 +311,11 @@ void Essai1()
 
   cout << "----- 5.3 Liberation memoire ----------------------------------------------------------------------------" << endl;
   for (int i=0 ; i<10 ; i++) delete actors[i];
-}*/
+}
 
 /******************************************************************************************/
 // A FAIRE : Les deux variables statiques ADMINISTRATIVE et SELLER (const string) de la classe Employee
-/*void Essai6()
+void Essai6()
 {
   cout << "Les deux fonctions possibles pour un Employee sont :" << endl;
   cout << " - " << Employee::ADMINISTRATIVE << endl;
@@ -320,4 +325,4 @@ void Essai1()
   cout << e << endl;
   e.setRole(Employee::SELLER);
   cout << e << endl;
-}*/
+}

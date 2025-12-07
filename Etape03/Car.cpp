@@ -5,11 +5,15 @@ namespace carconfig {
 // ***************** Constructeurs de Car ****************
 Car::Car(){
   int i;
-  std::cout << "On est dans le constructeur par défaut (Car)" << std::endl;
-  setName("Nom projet\n");
-  // pas de setmodel car Car appele directement le constructure de défaut Model
 
-  // on initialise les 5 pointeurs à null
+  #ifdef DEBUG
+    std::cout << "On est dans le constructeur par défaut (Car)" << std::endl;
+  #endif
+
+  setName("Nom projet\n");
+  // pas de setmodel car Car appele directement le constructeur par défaut Model
+  
+  // on initialise les 5 pointeurs d'option à null
   for(i=0; i<5; i++){
     options[i]=nullptr;
   }
@@ -18,7 +22,11 @@ Car::Car(){
 
 Car::Car(std::string n, Model m){
   int i;
-  std::cout << "On est dans le constructeur d'initialisation (Car)" << std::endl;
+
+  #ifdef DEBUG
+    std::cout << "On est dans le constructeur d'initialisation (Car)" << std::endl;
+  #endif
+
   setName(n);
   setModel(m);
 
@@ -30,7 +38,11 @@ Car::Car(std::string n, Model m){
 
 Car::Car(const Car &c){
   int i;
-  std::cout << "On est dans le constructeur de copie (Car)" << std::endl;
+
+  #ifdef DEBUG
+    std::cout << "On est dans le constructeur de copie (Car)" << std::endl;
+  #endif
+
   setName(c.getName());
   setModel(c.getModel());
 
@@ -48,7 +60,10 @@ Car::Car(const Car &c){
 // ***************** Destructeurs de Car ****************
 Car::~Car(){
   int i;
-  std::cout << "On est dans le destructeur du Car" << std::endl;
+
+  #ifdef DEBUG
+    std::cout << "On est dans le destructeur du Car" << std::endl;
+  #endif
 
  for (i = 0; i < 5; ++i)
  {
@@ -59,14 +74,11 @@ Car::~Car(){
 }
 
 // ***************** SETTLERS de Car **************** 
-void Car::setName(std::string n){ // pour changer le nom du projet de la voiture
-  /*if (n=="") return; // si la chaîne est vide, on ne fait rien
-  if (name==n) return; // si n est pareil que name, on ne fait rien*/ // // pas besoin de faire ça car string gère lui même
-
-  name=n; // sinon une copie la chaîne n dans name
+void Car::setName(std::string n){ 
+  name=n; 
 }
 
-void Car::setModel(Model m) { // pour mettre à jour le modèle de la voiture à partir d'un autre Model
+void Car::setModel(Model m) { 
   // on copie champ par champ
     model.setName(m.getName());
     model.setPower(m.getPower());
@@ -107,15 +119,15 @@ void Car::removeOption(std::string code){
   }
 }
 
-float Car::getPrice() const{ // calcule le prix total de la voiture
+float Car::getPrice() const{
   int i;
   float somme;
 
-  somme=model.getBasePrice(); // prix de base du modèle
+  somme=model.getBasePrice();
 
   for(i=0; i<5; i++){
-    if(options[i]!=nullptr){ // si l'option pointe vers qqch
-      somme=somme+options[i]->getPrice(); // on fait la somme des prix de tous les potions
+    if(options[i]!=nullptr){ 
+      somme=somme+options[i]->getPrice();
     }
   }
 
@@ -132,10 +144,11 @@ void Car::display() const{
       std::cout << "Projet Car : " << name << std::endl;
   }
   else{
-    std::cout << "Pas de nom " << std::endl;
+      std::cout << "Pas de nom " << std::endl;
   }
 
   std::cout << "Modèle : ";
+
   model.display();
 
   std::cout << "Option : " << std::endl;
@@ -148,7 +161,7 @@ void Car::display() const{
 
 
 
-// ***************** Opérateurs de surcharge (-, +, =) ****************
+// ***************** Surcharges d'opérateurs (-, +, =) ****************
 Car& Car::operator=(const Car &c){ // c1=c2
   int i;
 
@@ -165,11 +178,11 @@ Car& Car::operator=(const Car &c){ // c1=c2
 
   
   for(i=0; i<5; i++){ // on copie les options
-    if (c.options[i] != nullptr){ // Si le pointeur vers une option pointe vers qqch
-      options[i] = new Option(*(c.options[i])); // on crée une copie des options
+    if (c.options[i] != nullptr){ 
+      options[i] = new Option(*(c.options[i])); 
     }
     else{
-      options[i] = nullptr; // sinon on met le pointeur à nullptr
+      options[i] = nullptr; 
     }
   }
 
@@ -179,7 +192,7 @@ Car& Car::operator=(const Car &c){ // c1=c2
 Car Car::operator+ (const Option &o) const{ // c3=c2+op1
   Car c2(*this); // on crée un objet temporaire à partir de l’objet courant car celui-ci ne doit pas être modifié
 
-  c2.addOption(o); // on ajoute une option (allouée dynamiquement)
+  c2.addOption(o);
 
   return c2;
 }
@@ -205,7 +218,7 @@ Car Car::operator- (std::string code) const{ // c3=c3- "ZH75"
 }
 
 
-// ***************** Opérateurs de surcharge comparaison (<, >, ==) ****************
+// ***************** Surcharge d'opérateurs comparaison (<, >, ==) ****************
 int Car::operator<(const Car& c) const
 {
   return compC(c)==-1;
@@ -238,7 +251,7 @@ int Car::compC(const Car& c) const
 
 }
 
-// ***************** Opérateurs de surcharge flux (<<, >>) ****************
+// ***************** Surcharge d'opérateurs flux (<<, >>) ****************
 std::ostream &operator<<(std::ostream &s, const Car &c){ // cout << "Projet de Mr Dugenou :” << c1 << endl;
 
   int i;

@@ -1,6 +1,6 @@
 .SILENT : 
 	
-COMP= g++ -Wall -D DEBUG
+COMP= g++ -Wall 
 
 Test3 : Test3.o Car.o Model.o Option.o
 	echo Création compilation Test3.o

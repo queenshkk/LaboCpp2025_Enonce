@@ -5,14 +5,20 @@ namespace carconfig{
 
 // ***************** Constructeurs  ****************
 Option::Option(){
-	std::cout << "On est dans le constructeur par défaut (Option)" << std::endl;
+	#ifdef DEBUG
+		std::cout << "On est dans le constructeur par défaut (Option)" << std::endl;
+	#endif
+
 	setCode("abcd");
 	setLabel ("Peinture métallisée");
 	setPrice(7.5);
 }
 
 Option::Option(std::string c, std::string l, float fp){
-	std::cout << "On est dans le constructeur d'initialisation (Option)" << std::endl;
+	#ifdef DEBUG
+		std::cout << "On est dans le constructeur d'initialisation (Option)" << std::endl;
+	#endif
+
 	setCode(c);
 	setLabel(l);
 	setPrice(fp);
@@ -20,7 +26,10 @@ Option::Option(std::string c, std::string l, float fp){
 }
 
 Option::Option(const Option &o){
-	std::cout << "On est dans le constructeur de copie (Option)" << std::endl;
+	#ifdef DEBUG
+		std::cout << "On est dans le constructeur de copie (Option)" << std::endl;
+	#endif
+
 	setCode(o.getCode());
 	setLabel(o.getLabel());
 	setPrice(o.getPrice());
@@ -28,21 +37,17 @@ Option::Option(const Option &o){
 
 // ***************** Destructeur  ****************
 Option::~Option(){
-	std::cout << "On est dans le destructeur (Option)" << std::endl;
-	// rien à delete car les string gère leur propre mémoire
+	#ifdef DEBUG
+		std::cout << "On est dans le destructeur (Option)" << std::endl;
+	#endif
 }
 
 // ***************** SETTERS ****************
 void Option::setCode(std::string c){
-	/*if(c=="") return; // si la chaine est vide, on ne fait rien
-	if(code==c) return;*/ // pas besoin de faire ça car string gère lui même
-
 	code = c;
 }
 
 void Option::setLabel(std::string l){
-	/*if(l=="") return;
-	if(label==l) return;*/ // pas besoin de faire ça car string gère lui même
 
 	label= l;
 }
@@ -71,6 +76,7 @@ float 		Option::getPrice() const{
 void Option::display() const{
 	if (code!=""){
 		std::cout << "Code : " << code << std::endl; 
+
 	}
 	else{
 		std::cout << "Pas de code";
@@ -88,18 +94,18 @@ void Option::display() const{
 
 }
 
-// ***************** Opérateurs de surcharge flux (<<, >>) ****************
+// ***************** Surcharge d'opérateurs flux (<<, >>) ****************
 
 std::istream& operator>>(std::istream& s, Option &o){ // cin >> op1
-
 	std::string code, label;
 	float price;
 
 	std::cout << "Code : ";
-	s >> code;
+	getline(s, code);
+
 
 	std::cout << "Label : ";
-	s >> label;
+	getline(s, label);
 
 	std::cout << "Prix : ";
 	s >> price;
@@ -135,7 +141,7 @@ std::ostream& operator<<(std::ostream& s,const Option &o){ // cout << op1
 
 } 
 
-// ***************** Opérateurs de pré/post-incrémentation (++, --) ****************
+// ***************** Surcharge d'opérateurs de pré/post-incrémentation (++, --) ****************
 
 Option Option::operator--(){ // pré-incrémentation : on baisse le prix avant d'afficher l'option
 	price = price - 50; 
