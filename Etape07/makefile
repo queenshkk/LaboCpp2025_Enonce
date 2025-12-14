@@ -2,9 +2,9 @@
 	
 COMP= g++ -Wall 
 
-Test6: Test7.o Car.o Model.o Option.o Exception.o OptionException.o PasswordException.o Person.o Actor.o Employee.o Client.o XmlFileSerializer.o XmlFileSerializerException.o
+Test7: Test7.o Car.o Model.o Option.o Exception.o OptionException.o PasswordException.o Person.o Actor.o Employee.o Client.o XmlFileSerializerException.o
 	echo Création compilation Test7.o
-	$(COMP) Test7.cpp Car.o Model.o Option.o Exception.o OptionException.o PasswordException.o Person.o Actor.o Employee.o Client.o XmlFileSerializer.o XmlFileSerializerException.o -o Test7
+	$(COMP) Test7.cpp Car.o Model.o Option.o Exception.o OptionException.o PasswordException.o Person.o Actor.o Employee.o Client.o XmlFileSerializerException.o -o Test7
 
 Car.o : Car.cpp Car.h 
 	echo Création de compilation Car.o
@@ -46,17 +46,12 @@ Client.o : Client.cpp Client.h
 	echo Création de compilation Client.o 
 	$(COMP) Client.cpp -c
 	
-
-XmlFileSerializer.o : XmlFileSerializer.ipp, XmlFileSerializer.hpp
-	echo Création de compilation XmlFileSerializer.o
-	$(COMP) XmlFileSerializer.cpp
-
 XmlFileSerializerException.o : XmlFileSerializerException.cpp XmlFileSerializerException.h
 	echo Création de compilation XmlFileSerializerException.o
-	$(COMP) XmlFileSerializerException.cpp
+	$(COMP) XmlFileSerializerException.cpp -c
 
 clean :
-	rm -f *.o Test5
+	rm -f *.o Test7
 
 clobber : clean
 

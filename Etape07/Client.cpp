@@ -66,21 +66,21 @@ std::istream& operator>>(std::istream& s, Client &c){
 	std::string balise, ln, fn, i_d, gsm;
 	int id;
 
-	std::getline(s, balise); //"<Client>"
-	std::getline(s, balise); // "<lastName>"
-	std::getline(s, ln);
-	std::getline(s, balise); // "</lastName>
-	std::getline(s, balise); // "<firstName>
-	std::getline(s, fn);
-	std::getline(s, balise); // "</firstName>
-	std::getline(s, balise); // "<id>
-	std::getline(s, i_d);
+	s >> balise; //"<Client>"
+	s >> balise; // "<lastName>"
+	s >> ln;
+	s >> balise; // "</lastName>
+	s >> balise; // "<firstName>
+	s >> fn;
+	s >> balise; // "</firstName>
+	s >> balise; // "<id>
+	s >> i_d;
 	id=std::stoi(i_d);
-	std::getline(s, balise); // "</id>
-	std::getline(s, balise); // "<gsm>
-	std::getline(s, gsm);
-	std::getline(s, balise); // "</gsm>
-	std::getline(s, balise); //"</Client>"
+	s >> balise; // "</id>
+	s >> balise; // "<gsm>
+	s >> gsm;
+	s >> balise; // "</gsm>
+	s >> balise; //"</Client>"
 
 	c.setLastName(ln);
 	c.setFirstName(fn);

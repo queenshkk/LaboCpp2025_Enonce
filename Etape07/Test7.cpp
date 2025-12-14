@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Client.h"
 #include "XmlFileSerializer.hpp"
+#include "XmlFileSerializerException.h"
 
 using namespace std;
 
