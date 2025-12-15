@@ -16,6 +16,8 @@ Model::Model()
   setPower(0);
   setEngine(Engine::Petrol);
   setBasePrice(0.0);
+  setImage("");
+
 }
 
 Model::Model(const  char*n, int p, Engine e, float bp)
@@ -30,6 +32,7 @@ Model::Model(const  char*n, int p, Engine e, float bp)
   setPower(p);
   setEngine(e);
   setBasePrice(bp);
+  setImage("");
 }
 
 Model::Model(const Model &m){ 
@@ -43,6 +46,7 @@ Model::Model(const Model &m){
     setPower(m.getPower());
     setEngine(m.getEngine());
     setBasePrice(m.getBasePrice());
+    setImage(m.getImage());  
 }
 
 

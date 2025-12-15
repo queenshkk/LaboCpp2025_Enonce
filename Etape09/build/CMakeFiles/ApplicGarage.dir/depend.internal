@@ -32,9 +32,11 @@ CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o
  ../includes/Car.h
  ../includes/Client.h
  ../includes/Employee.h
+ ../includes/Exception.h
  ../includes/Garage.h
  ../includes/Model.h
  ../includes/Option.h
+ ../includes/OptionException.h
  ../includes/Person.h
  /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/Garage.cpp
 CMakeFiles/ApplicGarage.dir/sources/Model.cpp.o

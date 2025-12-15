@@ -31,9 +31,11 @@ CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Actor.h
 CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Car.h
 CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Client.h
 CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Employee.h
+CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Exception.h
 CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Garage.h
 CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Model.h
 CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Option.h
+CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/OptionException.h
 CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../includes/Person.h
 CMakeFiles/ApplicGarage.dir/sources/Garage.cpp.o: ../sources/Garage.cpp
 

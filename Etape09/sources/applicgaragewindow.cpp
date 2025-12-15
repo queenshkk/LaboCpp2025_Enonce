@@ -11,7 +11,7 @@
 #include "Option.h"
 #include "OptionException.h"
 
-#define IMAGES_DIR "../images/"
+#define IMAGES_DIR "../../images/"
 
 using namespace carconfig;
 
@@ -662,7 +662,7 @@ void ApplicGarageWindow::on_actionNewModel_triggered()
     cout << "basePrice = " << basePrice << endl;
     cout << "image = " << image << endl;
 
-    if(modelName=="" | power <=0 || basePrice <=0.0 || image==""){
+    if(modelName=="" || power <=0 || basePrice <=0.0 || image==""){
         this->dialogError("Erreur", "Données invalidés");
         return;
     }
@@ -698,7 +698,7 @@ void ApplicGarageWindow::on_actionNewModel_triggered()
 void ApplicGarageWindow::on_actionNewOption_triggered()
 {
     // TO DO (étape 9)
-
+    int i;
     string code = this->dialogPromptText("Nouvelle option","Code :");
     string label = this->dialogPromptText("Nouvelle option","Intitule :");
     float price = this->dialogPromptFloat("Nouvelle option","Prix :");
@@ -708,11 +708,22 @@ void ApplicGarageWindow::on_actionNewOption_triggered()
     cout << "label = " << label << endl;
     cout << "price = " << price << endl;
 
+    Car& currentProject=Garage::getCurrentProject(); //on prend la voiture actuelle
+    
+    for(i=0; i<5; i++){
+        Option *o=currentProject[i]; // on accèse à une option du projet
+        if(o!=nullptr && o->getCode()==code){
+            this->dialogError("Erreur", "Option avec ce code existe déjà");
+            return;
+        }
+    }
+
     try{
         Option o(code, label, price);
         Garage::getInstance().addOption(o);
 
         this->addAvailableOption(label, price);
+
     }catch(const OptionException &e){
         this->dialogError("Erreur", e.getMessage().c_str()); // Qt utilise char *
         return;
@@ -801,7 +812,8 @@ void ApplicGarageWindow::on_pushButtonSelectModel_clicked()
     // TO DO (étape 9)
     cout << ">>> Clic sur bouton SelectModel <<<" << endl;
 
-    int indice, engine=0;
+
+    int indice, engine=0, i, ligne;
 
     indice=this->getIndexModelSelectionCombobox();
 
@@ -811,10 +823,10 @@ void ApplicGarageWindow::on_pushButtonSelectModel_clicked()
     }
 
     indice--; //combobox contient un premier element
-    Model m=Garage::getInstance().getModel(indice);
+    Model m=Garage::getInstance().getModel(indice); // récupère le modèle actuel
 
     Car& currentProject = Garage::getCurrentProject();
-    currentProject.setModel(m);
+    currentProject.setModel(m); // on l'affecte à la voiture courante
 
     switch(m.getEngine()){
         case Petrol:
@@ -831,8 +843,12 @@ void ApplicGarageWindow::on_pushButtonSelectModel_clicked()
             break;
     }
 
+
     this->setModel(m.getName(), m.getPower(), engine, m.getBasePrice(), m.getImage());
-    this ->setPrice(currentProject.getPrice());
+    this->setPrice(currentProject.getPrice());
+    
+
+
     
 }
 
@@ -842,30 +858,32 @@ void ApplicGarageWindow::on_pushButtonAddOption_clicked()
     // TO DO (étape 9)
     cout << ">>> Clic sur bouton AddOption <<<" << endl;
 
-    Option o;
-    int indice, i=0, nb;
-    indice=this->getIndexOptionSelectionTable();
+    int indice, i=0;
+    static int ligne=0; // cpt rest en mémoire à chaque fois qu'on clique sur ajouter
+    indice=this->getIndexOptionSelectionCombobox();
 
     if(indice==-1){
-        this->dialogError("Erreur", "Aucun modèle selectionné");
+        this->dialogError("Erreur", "Aucune option selectionnée");
         return;
     }
-
     
+    indice=indice-2; // on avait ajouté 2 options manuellement
     try{
-        indice --;
         Option o=Garage::getInstance().getOption(indice);
+     
         Car & currentProject=Garage::getCurrentProject();
+
         currentProject.addOption(o);
 
-        setTableOption(i, op.getCode(), op.getLabel(), op.getPrice());
-        i++;
-        
+    
+        setTableOption(ligne, o.getCode(), o.getLabel(), o.getPrice());
+        ligne++;
 
-        this->setPrice(currentProject.getPrice());
+        setPrice(currentProject.getPrice());
 
     }catch(const OptionException &e){
         this->dialogError("Erreur", e.getMessage().c_str());
+        
     }
 }
 
@@ -874,13 +892,44 @@ void ApplicGarageWindow::on_pushButtonRemoveOption_clicked()
 {
     // TO DO (étape 9)
     cout << ">>> Clic sur bouton RemoveOption <<<" << endl;
+    int indice, i;
+    indice=getIndexOptionSelectionTable();
+
+    if(indice==-1){
+        this->dialogError("Erreur", "Aucune option selectionnée");
+        return;
+    }
+
+    try{
+        Car &currentProject=Garage::getCurrentProject();
+
+        Option *o=currentProject[indice];
+        currentProject.removeOption(o->getCode());
+
+        for(i=indice; i<4; i++){
+            Option *o=currentProject[i];
+            if(o!=nullptr){
+                setTableOption(i, o->getCode(), o->getLabel(), o->getPrice());
+            }
+            else{
+                setTableOption(i);
+            }
+        }
+
+        setTableOption(4);
+        setPrice(currentProject.getPrice());
+
+    }catch(const OptionException &e){
+        this->dialogError("Erreur", e.getMessage().c_str());
+        return;
+    }
+   
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_pushButtonReduction_clicked()
 {
-    // TO DO (étape 9)
-    cout << ">>> Clic sur bouton Reduction <<<" << endl;
+    // TO DO (étape 9()    cout << ">>> Clic sur bouton Reduction <<<" << endl;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

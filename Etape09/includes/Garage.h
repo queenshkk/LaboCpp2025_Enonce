@@ -10,6 +10,7 @@
 #include "Client.h"
 #include "Employee.h"
 #include "Car.h"
+#include "OptionException.h"
 
 namespace carconfig{
 

@@ -58,16 +58,18 @@ Option Garage::getOption(int index){
 	it=options.begin();
 	int i;
 
-	if(index<0) return Option();
+	if(index<0){
+		throw OptionException("Indice option invalide");
+	}
 
 	for(i=0; i<index; i++, it++){
 		if(it==options.end()){
-			return Option();
+			throw OptionException("Indice option invalide");
 		}
 	}
 
 	if(it==options.end()){
-		return Option();
+		throw OptionException("Indice option invalide");
 	}
 
 	return *it;

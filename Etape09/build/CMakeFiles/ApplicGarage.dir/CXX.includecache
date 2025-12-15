@@ -65,6 +65,8 @@ Employee.h
 ../includes/Employee.h
 Car.h
 ../includes/Car.h
+OptionException.h
+../includes/OptionException.h
 
 ../includes/Model.h
 iostream
