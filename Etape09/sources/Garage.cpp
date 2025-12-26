@@ -1,6 +1,5 @@
 #include "Garage.h"
 
-namespace carconfig{
 
 Garage::Garage(){
 	#ifdef DEBUG
@@ -49,7 +48,7 @@ void Garage::displayAllOptions() const{
 	std::list<Option>::const_iterator it;
 
 	for(it=options.cbegin(); it!=options.cend(); it++){
-		std::cout << *it<< std::endl; // pcq la classe Option a un opérateur << donc on peut l'afficher directement
+		std::cout << (*it).toString()<< std::endl;
 	}
 }
 
@@ -258,5 +257,3 @@ void Garage::resetCurrentProject(){
 	currentProject=Car(); // remet tout par défaut
 }
 
-
-}

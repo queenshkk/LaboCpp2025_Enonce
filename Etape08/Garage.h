@@ -10,8 +10,11 @@
 #include "Client.h"
 #include "Employee.h"
 #include "Car.h"
+#include <list>
 
-namespace carconfig{
+using carconfig::Model;
+using carconfig::Option;
+using carconfig::Car;
 
 class Garage{
 private:
@@ -57,5 +60,5 @@ public:
 	static void resetCurrentProject();
 
 };
-}
+
 #endif

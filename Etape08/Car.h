@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "Option.h"
 
+using carconfig::Engine;
 namespace carconfig{
 
 

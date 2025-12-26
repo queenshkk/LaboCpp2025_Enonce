@@ -12,7 +12,11 @@
 #include "Car.h"
 #include "OptionException.h"
 
-namespace carconfig{
+using carconfig::Model;
+using carconfig::Option;
+using carconfig::Car;
+
+
 
 class Garage{
 private:
@@ -57,6 +61,9 @@ public:
 	static Car& getCurrentProject();
 	static void resetCurrentProject();
 
+
+
+
 };
-}
+
 #endif

@@ -92,16 +92,16 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
     this->addTupleTableContracts("7;Coptere Eli;Wagner Jean-Marc;Projet 208 Wagner");
 
     this->clearTableOption();
-    this->setTableOption(2,"EMM0","Toit ouvrant panoramique",750.00);
-    this->setTableOption(4);
+    //this->setTableOption(2,"EMM0","Toit ouvrant panoramique",750.00);
+    //this->setTableOption(4);
 
-    this->setCurrentProjectName("Projet308_Mr_Dugenou");
-    this->setModel("308 Gti Fusee Hybr",120,2,17500.0f,"308");
+    //this->setCurrentProjectName("Projet308_Mr_Dugenou");
+    //this->setModel("308 Gti Fusee Hybr",120,2,17500.0f,"308");
 
-    this->addAvailableOption("Peinture metallisee",450.0f);
-    this->addAvailableOption("Jante alliage leger 15 pouces",450.0f);
+    //this->addAvailableOption("Peinture metallisee",450.0f);
+    //this->addAvailableOption("Jante alliage leger 15 pouces",450.0f);
 
-    this->addAvailableModel("308 Gti Fusee Hybr",21500.0f);
+    //this->addAvailableModel("308 Gti Fusee Hybr",21500.0f);
 }
 
 ApplicGarageWindow::~ApplicGarageWindow()
@@ -822,7 +822,6 @@ void ApplicGarageWindow::on_pushButtonSelectModel_clicked()
         return;
     }
 
-    indice--; //combobox contient un premier element
     Model m=Garage::getInstance().getModel(indice); // récupère le modèle actuel
 
     Car& currentProject = Garage::getCurrentProject();
@@ -867,7 +866,6 @@ void ApplicGarageWindow::on_pushButtonAddOption_clicked()
         return;
     }
     
-    indice=indice-2; // on avait ajouté 2 options manuellement
     try{
         Option o=Garage::getInstance().getOption(indice);
      
@@ -906,7 +904,7 @@ void ApplicGarageWindow::on_pushButtonRemoveOption_clicked()
         Option *o=currentProject[indice];
         currentProject.removeOption(o->getCode());
 
-        for(i=indice; i<4; i++){
+        for(i=indice; i<5; i++){
             Option *o=currentProject[i];
             if(o!=nullptr){
                 setTableOption(i, o->getCode(), o->getLabel(), o->getPrice());
@@ -916,7 +914,7 @@ void ApplicGarageWindow::on_pushButtonRemoveOption_clicked()
             }
         }
 
-        setTableOption(4);
+        setTableOption(5);
         setPrice(currentProject.getPrice());
 
     }catch(const OptionException &e){
@@ -929,7 +927,30 @@ void ApplicGarageWindow::on_pushButtonRemoveOption_clicked()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_pushButtonReduction_clicked()
 {
-    // TO DO (étape 9()    cout << ">>> Clic sur bouton Reduction <<<" << endl;
+    // TO DO (étape 9()
+    cout << ">>> Clic sur bouton Reduction <<<" << endl;
+    int indice, i;
+
+    indice=getIndexOptionSelectionTable();
+
+    if(indice==-1){
+        this->dialogError("Erreur", "Aucune option sélectionnée");
+        return;
+    }
+
+    try{
+        Car &currentProject=Garage::getCurrentProject();
+        Option *o=currentProject[indice];
+        (*o)--;
+
+        
+        setTableOption(indice, o->getCode(), o->getLabel(), o->getPrice());
+        setPrice(currentProject.getPrice());
+    }catch(const OptionException &e){
+        this->dialogError("Erreur", e.getMessage().c_str());
+        return;
+    }
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -937,20 +958,113 @@ void ApplicGarageWindow::on_pushButtonSaveProject_clicked()
 {
     // TO DO (étape 9)
     cout << ">>> Clic sur bouton SaveProject <<<" << endl;
+
+    std::string projectName;
+
+    projectName=getCurrentProjectName();
+
+    Car &currentProject=Garage::getCurrentProject();
+    currentProject.setName(projectName);
+
+    currentProject.save();
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_pushButtonOpenProject_clicked()
 {
     // TO DO (étape 9)
+    int i;
+    int engine = 0;
+
     cout << ">>> Clic sur bouton OpenProject <<<" << endl;
+
+    std::string projectName;
+
+    projectName=getCurrentProjectName();
+
+    Car &currentProject=Garage::getCurrentProject();
+
+    
+    currentProject.load(projectName);
+
+    Model m=currentProject.getModel();
+    switch (m.getEngine()) {
+        case Petrol:
+            engine=0;
+            break;
+        case Diesel:
+            engine=1;
+            break;
+        case Electric:
+            engine=2;
+            break;
+        case Hybrid:
+            engine=3;
+            break;
+    }
+
+    setModel(m.getName(), m.getPower(), engine, m.getBasePrice(), m.getImage());
+
+    for (i=0; i<5; i++){
+        setTableOption(i);
+    }
+
+    for(i=0; i<5; i++){
+        Option *o=currentProject[i];
+        if(o!=nullptr){
+            setTableOption(i, o->getCode(), o->getLabel(), o->getPrice());
+        }
+    }
+    setPrice(currentProject.getPrice());
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_pushButtonNewProject_clicked()
 {
     // TO DO (étape 9)
+
+    int engine=0, i;
+    Garage::resetCurrentProject();
+
+    Car &currentProject=Garage::getCurrentProject();
+    Model m=currentProject.getModel();
+
+    setCurrentProjectName(currentProject.getName());
+    switch(m.getEngine()){
+        case Petrol:
+            engine=0;
+            break;
+        case Diesel:
+            engine=1;
+            break;
+        case Electric:
+            engine=2;
+            break;
+        case Hybrid:
+            engine=3;
+            break;
+    }
+
+    setModel(m.getName(), m.getPower(), engine, m.getBasePrice(), m.getImage());
+
+
+    for (i=0; i<5; i++){
+        setTableOption(i);
+    }
+
+    for(i=0; i<5; i++){
+        Option *o=currentProject[i];
+        if(o!=nullptr){
+            setTableOption(i, o->getCode(), o->getLabel(), o->getPrice());
+        }
+    }
+    setPrice(currentProject.getPrice());
+    
+
+    
     cout << ">>> Clic sur bouton NewProject <<<" << endl;
+    
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
