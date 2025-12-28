@@ -12,7 +12,7 @@ Model::Model()
 
   name=NULL; // initialiser le pointeur à "pas d'adresses"
 
-  setName("/");
+  setName("");
   setPower(0);
   setEngine(Engine::Petrol);
   setBasePrice(0.0);

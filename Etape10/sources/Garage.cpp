@@ -101,6 +101,8 @@ void Garage::displayClients() const{
 	}
 }
 
+
+
 void Garage::deleteClientByIndex(int index){
 	std::set<Client>::iterator it;
 	it=clients.begin();
@@ -185,6 +187,9 @@ void Garage::displayEmployees() const{
 		std::cout << (*it).toString() << std::endl; 
 	}
 }
+
+
+
 
 void Garage::deleteEmployeeByIndex(int index){
 	std::set<Employee>::iterator it;

@@ -11,7 +11,7 @@ Car::Car(){
     std::cout << "On est dans le constructeur par défaut (Car)" << std::endl;
   #endif
 
-  setName("Nom projet");
+  setName("");
   // pas de setmodel car Car appele directement le constructeur par défaut Model
   
   // on initialise les 5 pointeurs d'option à null

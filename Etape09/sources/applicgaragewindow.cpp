@@ -86,12 +86,12 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
     setRole();
 
     // ***** TESTS de l'interfac graphique (à supprimer) *****
-    this->addTupleTableEmployees("12;Coptere;Eli;Vendeur");
-    this->addTupleTableEmployees("17;Issier;Paul;Administratif");
-    this->addTupleTableClients("4;Wagner;Jean-Marc;0498.25.36.69");
-    this->addTupleTableContracts("7;Coptere Eli;Wagner Jean-Marc;Projet 208 Wagner");
+    //this->addTupleTableEmployees("12;Coptere;Eli;Vendeur");
+    //this->addTupleTableEmployees("17;Issier;Paul;Administratif");
+    //this->addTupleTableClients("4;Wagner;Jean-Marc;0498.25.36.69");
+    //this->addTupleTableContracts("7;Coptere Eli;Wagner Jean-Marc;Projet 208 Wagner");
 
-    this->clearTableOption();
+    //this->clearTableOption();
     //this->setTableOption(2,"EMM0","Toit ouvrant panoramique",750.00);
     //this->setTableOption(4);
 
@@ -650,23 +650,18 @@ void ApplicGarageWindow::on_actionNewModel_triggered()
     Engine e;
 
     string modelName = this->dialogPromptText("Nouveau modèle","Nom :");
-    int power = this->dialogPromptInt("Nouveau modèle","Puissance :");
-    int engine = this->dialogPromptInt("Nouveau modèle :","Moteur (0=essence,1=diesel,2=électrique,3=hybride) :");
-    float basePrice = this->dialogPromptFloat("Nouveau modèle","Prix de base :");
-    string image = this->dialogPromptText("Nouveau modèle","Nom du fichier de l'image :");
-
-    cout << ">>> Clic sur item NewModel <<<" << endl;
-    cout << "modelName = " << modelName << endl;
-    cout << "power = " << power << endl;
-    cout << "engine = " << engine << endl;
-    cout << "basePrice = " << basePrice << endl;
-    cout << "image = " << image << endl;
-
-    if(modelName=="" || power <=0 || basePrice <=0.0 || image==""){
-        this->dialogError("Erreur", "Données invalidés");
+    if(modelName==""){
+        dialogError("Erreur", "Nom invalide");
         return;
     }
 
+    int power = this->dialogPromptInt("Nouveau modèle","Puissance :");
+    if(power<=0){
+        dialogError("Erreur", "Puissance invalide");
+        return;
+    }
+
+    int engine = this->dialogPromptInt("Nouveau modèle :","Moteur (0=essence,1=diesel,2=électrique,3=hybride) :");
     switch(engine)
     {
         case 0: 
@@ -682,9 +677,28 @@ void ApplicGarageWindow::on_actionNewModel_triggered()
             e = Hybrid;
             break;
         default:
-            this->dialogError("Erreur", "Num moteur invalide");
+            dialogError("Erreur", "Num moteur invalide");
             return;
     }
+
+    float basePrice = this->dialogPromptFloat("Nouveau modèle","Prix de base :");
+    if(basePrice<=0.0){
+        dialogError("Erreur", "Prix de base invalide");
+        return;
+    }
+
+    string image = this->dialogPromptText("Nouveau modèle","Nom du fichier de l'image :");
+    if(image==""){
+        dialogError("Erreur", "Image invalide");
+        return;
+    }
+
+    cout << ">>> Clic sur item NewModel <<<" << endl;
+    cout << "modelName = " << modelName << endl;
+    cout << "power = " << power << endl;
+    cout << "engine = " << engine << endl;
+    cout << "basePrice = " << basePrice << endl;
+    cout << "image = " << image << endl;
 
 
     Model m(modelName.c_str(), power, e, basePrice);
@@ -700,9 +714,22 @@ void ApplicGarageWindow::on_actionNewOption_triggered()
     // TO DO (étape 9)
     int i;
     string code = this->dialogPromptText("Nouvelle option","Code :");
-    string label = this->dialogPromptText("Nouvelle option","Intitule :");
-    float price = this->dialogPromptFloat("Nouvelle option","Prix :");
+    if(code==""){
+        dialogError("Erreur", "Code invalide");
+        return;
+    }
 
+    string label = this->dialogPromptText("Nouvelle option","Intitule :");
+    if(label==""){
+        dialogError("Erreur", "Intitulé invalide");
+        return;
+    }
+    float price = this->dialogPromptFloat("Nouvelle option","Prix :");
+    if(price<=0.0){
+        dialogError("Erreur", "Prix invalide");
+        return;
+    }
+    
     cout << ">>> Clic sur item NewOption <<<" << endl;
     cout << "code = " << code << endl;
     cout << "label = " << label << endl;
@@ -818,34 +845,14 @@ void ApplicGarageWindow::on_pushButtonSelectModel_clicked()
     indice=this->getIndexModelSelectionCombobox();
 
     if(indice==-1){
-        this->dialogError("Erreur", "Aucun modèle selectionné");
+        dialogError("Erreur", "Aucun modèle selectionné");
         return;
     }
 
     Model m=Garage::getInstance().getModel(indice); // récupère le modèle actuel
+    Garage::getCurrentProject().setModel(m);// on l'affecte à la voiture courante
 
-    Car& currentProject = Garage::getCurrentProject();
-    currentProject.setModel(m); // on l'affecte à la voiture courante
-
-    switch(m.getEngine()){
-        case Petrol:
-            engine=0;
-            break;
-        case Diesel:
-            engine=1;
-            break;
-        case Electric:
-            engine=2;
-            break;
-        case Hybrid:
-            engine=3;
-            break;
-    }
-
-
-    this->setModel(m.getName(), m.getPower(), engine, m.getBasePrice(), m.getImage());
-    this->setPrice(currentProject.getPrice());
-    
+    MAJprojetEnCours();
 
 
     
@@ -858,30 +865,24 @@ void ApplicGarageWindow::on_pushButtonAddOption_clicked()
     cout << ">>> Clic sur bouton AddOption <<<" << endl;
 
     int indice, i=0;
-    static int ligne=0; // cpt rest en mémoire à chaque fois qu'on clique sur ajouter
-    indice=this->getIndexOptionSelectionCombobox();
+    indice=getIndexOptionSelectionCombobox();
 
     if(indice==-1){
-        this->dialogError("Erreur", "Aucune option selectionnée");
+        dialogError("Erreur", "Aucune option selectionnée");
         return;
     }
     
     try{
         Option o=Garage::getInstance().getOption(indice);
      
-        Car & currentProject=Garage::getCurrentProject();
+        Garage::getCurrentProject().addOption(o);
 
-        currentProject.addOption(o);
+        MAJtableOptions();
 
-    
-        setTableOption(ligne, o.getCode(), o.getLabel(), o.getPrice());
-        ligne++;
-
-        setPrice(currentProject.getPrice());
+        setPrice(Garage::getCurrentProject().getPrice());
 
     }catch(const OptionException &e){
-        this->dialogError("Erreur", e.getMessage().c_str());
-        
+        dialogError("Erreur", e.getMessage().c_str());
     }
 }
 
@@ -894,7 +895,7 @@ void ApplicGarageWindow::on_pushButtonRemoveOption_clicked()
     indice=getIndexOptionSelectionTable();
 
     if(indice==-1){
-        this->dialogError("Erreur", "Aucune option selectionnée");
+        dialogError("Erreur", "Aucune option selectionnée");
         return;
     }
 
@@ -904,22 +905,12 @@ void ApplicGarageWindow::on_pushButtonRemoveOption_clicked()
         Option *o=currentProject[indice];
         currentProject.removeOption(o->getCode());
 
-        for(i=indice; i<5; i++){
-            Option *o=currentProject[i];
-            if(o!=nullptr){
-                setTableOption(i, o->getCode(), o->getLabel(), o->getPrice());
-            }
-            else{
-                setTableOption(i);
-            }
-        }
+        MAJprojetEnCours();
 
-        setTableOption(5);
-        setPrice(currentProject.getPrice());
+        
 
     }catch(const OptionException &e){
-        this->dialogError("Erreur", e.getMessage().c_str());
-        return;
+        dialogError("Erreur", e.getMessage().c_str());
     }
    
 }
@@ -934,7 +925,7 @@ void ApplicGarageWindow::on_pushButtonReduction_clicked()
     indice=getIndexOptionSelectionTable();
 
     if(indice==-1){
-        this->dialogError("Erreur", "Aucune option sélectionnée");
+        dialogError("Erreur", "Aucune option sélectionnée");
         return;
     }
 
@@ -943,12 +934,10 @@ void ApplicGarageWindow::on_pushButtonReduction_clicked()
         Option *o=currentProject[indice];
         (*o)--;
 
-        
-        setTableOption(indice, o->getCode(), o->getLabel(), o->getPrice());
-        setPrice(currentProject.getPrice());
+        MAJtableOptions();
+        MAJprojetEnCours();
     }catch(const OptionException &e){
-        this->dialogError("Erreur", e.getMessage().c_str());
-        return;
+        dialogError("Erreur", e.getMessage().c_str());
     }
 
 }
@@ -988,82 +977,23 @@ void ApplicGarageWindow::on_pushButtonOpenProject_clicked()
     
     currentProject.load(projectName);
 
-    Model m=currentProject.getModel();
-    switch (m.getEngine()) {
-        case Petrol:
-            engine=0;
-            break;
-        case Diesel:
-            engine=1;
-            break;
-        case Electric:
-            engine=2;
-            break;
-        case Hybrid:
-            engine=3;
-            break;
-    }
 
-    setModel(m.getName(), m.getPower(), engine, m.getBasePrice(), m.getImage());
-
-    for (i=0; i<5; i++){
-        setTableOption(i);
-    }
-
-    for(i=0; i<5; i++){
-        Option *o=currentProject[i];
-        if(o!=nullptr){
-            setTableOption(i, o->getCode(), o->getLabel(), o->getPrice());
-        }
-    }
-    setPrice(currentProject.getPrice());
+    MAJprojetEnCours();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicGarageWindow::on_pushButtonNewProject_clicked()
 {
     // TO DO (étape 9)
-
-    int engine=0, i;
-    Garage::resetCurrentProject();
-
-    Car &currentProject=Garage::getCurrentProject();
-    Model m=currentProject.getModel();
-
-    setCurrentProjectName(currentProject.getName());
-    switch(m.getEngine()){
-        case Petrol:
-            engine=0;
-            break;
-        case Diesel:
-            engine=1;
-            break;
-        case Electric:
-            engine=2;
-            break;
-        case Hybrid:
-            engine=3;
-            break;
-    }
-
-    setModel(m.getName(), m.getPower(), engine, m.getBasePrice(), m.getImage());
-
-
-    for (i=0; i<5; i++){
-        setTableOption(i);
-    }
-
-    for(i=0; i<5; i++){
-        Option *o=currentProject[i];
-        if(o!=nullptr){
-            setTableOption(i, o->getCode(), o->getLabel(), o->getPrice());
-        }
-    }
-    setPrice(currentProject.getPrice());
-    
-
     
     cout << ">>> Clic sur bouton NewProject <<<" << endl;
+    cout << ">>> Clic sur bouton NewProject <<<" << endl;
+
+    Garage::resetCurrentProject();
+
+
+    MAJprojetEnCours();
+  
     
 }
 
@@ -1091,27 +1021,53 @@ void ApplicGarageWindow::on_pushButtonShowCar_clicked()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Mes méthodes à moi /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*void ApplicGarageWindow::MAJtableOptions()
+void ApplicGarageWindow::MAJtableOptions()
 {
-    for (int i=0 ; i<5 ; i++)
+    int i;
+    Car &c=Garage::getCurrentProject();
+
+    for(i=0;i<5;i++)
     {
-        Option *ptr = Garage::getProjetEnCours()[i];
-        if (ptr != NULL) setTableOption(i,ptr->getCode(),ptr->getLabel(),ptr->getPrice());
-        else setTableOption(i);
+        Option *o=c[i];
+        if (o != NULL){
+            setTableOption(i, o->getCode(), o->getLabel(), o->getPrice());
+        }
+        else{
+            setTableOption(i);
+        } 
     }
 }
 
-void ApplicGarageWindow::MAJprojetEnCours()
-{
-    setCurrentProjectName(Garage::getProjetEnCours().getName());
-    setModel(Garage::getProjetEnCours().getModele().getName(),
-              Garage::getProjetEnCours().getModele().getPower(),
-              Garage::getProjetEnCours().getModele().getEngine(),
-              Garage::getProjetEnCours().getModele().getBasePrice(),
-              Garage::getProjetEnCours().getModele().getImage());
+void ApplicGarageWindow::MAJprojetEnCours(){
+
+    int engine=0;
+
+    Car &c=Garage::getCurrentProject();
+    Model m=c.getModel();
+
+    switch(m.getEngine()){
+        case Petrol:
+            engine=0;
+            break;
+        case Diesel:
+            engine=1;
+            break;
+        case Electric:
+            engine=2;
+            break;
+        case Hybrid:
+            engine=3;
+            break;
+    }
+
+    setCurrentProjectName(c.getName());
+
+    setModel(m.getName(), m.getPower(), engine, m.getBasePrice(), m.getImage());
+ 
     MAJtableOptions();
-    setPrice(Garage::getProjetEnCours().getPrice());
+    setPrice(c.getPrice());
 }
+/*
 
 void ApplicGarageWindow::MAJtableEmployes()
 {

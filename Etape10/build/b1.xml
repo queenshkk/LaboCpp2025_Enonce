@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Car>
+<name>
+b1
+</name>
+<model>
+<Model>
+<name>
+308 Active 1.5 BlueHDi EAT8
+</name>
+<power>
+130
+</power>
+<engine>
+diesel
+</engine>
+<basePrice>
+27390
+</basePrice>
+<image>
+308.jpg
+</image>
+</Model>
+</model>
+<options>
+<Option>
+<code>
+VD09
+</code>
+<label>
+Vitres laterales arrieres surteintees
+</label>
+<price>
+150
+</price>
+</Option>
+<Option>
+<code>
+0MM0
+</code>
+<label>
+Peinture metallisee
+</label>
+<price>
+400
+</price>
+</Option>
+<Option>
+<code>
+FE10
+</code>
+<label>
+Pack LED
+</label>
+<price>
+350
+</price>
+</Option>
+</options>
+</Car>

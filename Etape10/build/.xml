@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Car>
+<name>
+
+</name>
+<model>
+<Model>
+<name>
+208 GT Line e-208
+</name>
+<power>
+136
+</power>
+<engine>
+electrique
+</engine>
+<basePrice>
+35810
+</basePrice>
+<image>
+208.jpg
+</image>
+</Model>
+</model>
+<options>
+<Option>
+<code>
+0MM0
+</code>
+<label>
+Peinture metallisee
+</label>
+<price>
+400
+</price>
+</Option>
+</options>
+</Car>

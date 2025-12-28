@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Car>
+<name>
+b1
+</name>
+<model>
+<Model>
+<name>
+208 Active 1.2 PureTech 75
+</name>
+<power>
+75
+</power>
+<engine>
+essence
+</engine>
+<basePrice>
+18050
+</basePrice>
+<image>
+208.jpg
+</image>
+</Model>
+</model>
+<options>
+<Option>
+<code>
+0MM0
+</code>
+<label>
+Peinture metallisee
+</label>
+<price>
+400
+</price>
+</Option>
+</options>
+</Car>

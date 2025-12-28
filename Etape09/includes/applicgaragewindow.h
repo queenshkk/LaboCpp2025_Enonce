@@ -65,6 +65,10 @@ public:
     int    dialogPromptInt(const char *title, const char *question);
     float  dialogPromptFloat(const char *title, const char *question);
 
+    // Mes fonctions
+    void MAJtableOptions();
+    void MAJprojetEnCours();
+    
 private slots:
     void on_actionLogout_triggered();
     void on_actionResetPassword_triggered();
