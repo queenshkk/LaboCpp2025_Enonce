@@ -50,7 +50,7 @@ public:
 	void deleteClientById(int id);
 	Client findClientByIndex(int index) const;
 	Client findClientById(int id) const;
-	int getNbClients() const;
+	
 
 	int addEmployee(std::string lastName, std::string firstName, std::string login, std::string role);
 	void displayEmployees() const;
@@ -58,7 +58,9 @@ public:
 	void deleteEmployeeById(int id);
 	Employee findEmployeeByIndex(int index) const;
 	Employee findEmployeeById(int id) const;
-	int getNbEmployees() const;
+	Employee findEmployeeLogin(const std::string &login) const;
+
+	
 	void updateEmployee(const Employee &e);
 
 

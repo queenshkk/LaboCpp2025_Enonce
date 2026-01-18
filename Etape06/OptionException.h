@@ -5,8 +5,6 @@
 #include <string>
 #include "Exception.h"
 
-
-
 class OptionException: public Exception{
 private:
 
@@ -16,7 +14,6 @@ public:
 	OptionException(std:: string msg);
 	OptionException(const OptionException &oe);
 	 ~OptionException() noexcept override;
-
 
 };
 

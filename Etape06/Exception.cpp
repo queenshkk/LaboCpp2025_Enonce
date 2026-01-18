@@ -40,13 +40,10 @@ std::string Exception::getMessage() const noexcept{
 
 void Exception::display() const{
 	if(message!=""){
-		
 		std::cout << "Message : " << message << std::endl;
 		
 	}else{
-		
 		std::cout << "Pas de message" << std::endl;
-		
 	}
 }
 

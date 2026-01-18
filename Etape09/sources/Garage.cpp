@@ -8,14 +8,14 @@ Garage::Garage(){
 }
 
 void Garage::addModel(const Model & m){
-	models.push_back(m); // alloue et insère une nouvelle case à la fin de la liste
+	models.push_back(m); 
 }
 
 void Garage::displayAllModels() const{
-	std::list<Model>::const_iterator it; // car la méthode est const, on ne peut pas modifier
+	std::list<Model>::const_iterator it; 
 
-	for(it=models.cbegin(); it!=models.cend(); it++){ // cbegin, cend car c'est une méthode const
-		std::cout << (*it).toString() << std::endl; // pour afficher tous les modèles de la liste
+	for(it=models.cbegin(); it!=models.cend(); it++){ 
+		std::cout << (*it).toString() << std::endl;
 	}
 }
 
@@ -79,9 +79,9 @@ int Garage::addClient(std::string lastName, std::string firstName, std::string g
 	int id;
 
 	id=c.getId();
-	clients.insert(c);  // alloue et insère une nouvelle case au bon endroit
+	clients.insert(c);  
 
-	return id; // id généré automatiquement
+	return id; 
 }
 
 void Garage::displayClients() const{
@@ -117,8 +117,8 @@ void Garage::deleteClientById(int id){
 
 	for(it=clients.begin(); it!=clients.end(); it++){
 		if(it->getId()==id){
-		clients.erase(it);
-		return;
+			clients.erase(it);
+			return;
 		}
 	}
 
@@ -155,12 +155,12 @@ Client Garage::findClientById(int id) const{
 		}
 	}
 
-	return Client(); // si rien, retourne Client vide
+	return Client();
 
 }
 
 int Garage::addEmployee(std::string lastName, std::string firstName, std::string login, std::string role){
-	Employee e (lastName, firstName, login, role);
+	Employee e(lastName, firstName, login, role);
 	int id;
 
 	id=e.getId();
@@ -221,7 +221,7 @@ Employee Garage::findEmployeeByIndex(int index) const{
 	}
 
 	if(it==employees.cend()){
-			return Employee();
+		return Employee();
 	}
 
 	return *it;
@@ -240,7 +240,7 @@ Employee Garage::findEmployeeById(int id) const{
 }
 
 
-Garage Garage::instance; // on crée l'instance
+Garage Garage::instance; 
 
 Car Garage::currentProject;
 
@@ -254,6 +254,6 @@ Car& Garage::getCurrentProject(){
 }
 
 void Garage::resetCurrentProject(){
-	currentProject=Car(); // remet tout par défaut
+	currentProject=Car(); 
 }
 

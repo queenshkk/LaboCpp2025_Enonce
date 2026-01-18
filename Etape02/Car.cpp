@@ -7,9 +7,7 @@ Car::Car(){
   int i;
   std::cout << "On est dans le constructeur par défaut (Car)" << std::endl;
   setName("Nom projet\n");
-  // pas de setmodel car Car appele directement le constructure de défaut Model
 
-  // on initialise les 5 pointeurs à null
   for(i=0; i<5; i++){
     options[i]=nullptr;
   }
@@ -35,11 +33,11 @@ Car::Car(const Car &c){
   setModel(c.getModel());
 
   for(i=0; i<5; i++){
-    if (c.options[i] != nullptr){ //Si le pointeur vers une option pointe vers qqch
-      options[i] = new Option(*(c.options[i])); // on crée une copie des options
+    if (c.options[i]!= nullptr){ 
+      options[i]=new Option(*(c.options[i])); 
     }
     else{
-      options[i] = nullptr; // sinon on met le pointeur à nullptr
+      options[i]=nullptr; 
     }
   }
   
@@ -50,28 +48,23 @@ Car::~Car(){
   int i;
   std::cout << "On est dans le destructeur du Car" << std::endl;
 
- for (i = 0; i < 5; ++i)
- {
-  delete options[i]; // on supprime toutes les options allouées dynamiquement
-  options[i] = nullptr; // on remet le pointeur à null car sinon le pointeur garde l'ancienne adresse mémoire qui n'est plus valable
- }
+  for(i=0;i<5;i++){
+    delete options[i]; 
+    options[i]=nullptr; 
+  }
 
 }
 
 // ***************** SETTLERS de Car **************** 
-void Car::setName(std::string n){ // pour changer le nom du projet de la voiture
-  /*if (n=="") return; // si la chaîne est vide, on ne fait rien
-  if (name==n) return; // si n est pareil que name, on ne fait rien*/ // // pas besoin de faire ça car string gère lui même
-
-  name=n; // sinon une copie la chaîne n dans name
+void Car::setName(std::string n){ 
+  name=n; 
 }
 
-void Car::setModel(Model m) { // pour mettre à jour le modèle de la voiture à partir d'un autre Model
-  // on copie champ par champ
-    model.setName(m.getName());
-    model.setPower(m.getPower());
-    model.setEngine(m.getEngine());
-    model.setBasePrice(m.getBasePrice());
+void Car::setModel(Model m) { 
+  model.setName(m.getName());
+  model.setPower(m.getPower());
+  model.setEngine(m.getEngine());
+  model.setBasePrice(m.getBasePrice());
 }
 
 // ***************** GETTERS de Car ****************
@@ -87,9 +80,9 @@ Model Car::getModel() const {
 void Car::addOption(const Option &o){
   int i;
   for(i=0; i<5; i++){
-    if(options[i]==nullptr){ // on cherche la première case libre dans la tableau
-      options[i]=new Option(o); // on lui donne un pointeur vers un objet Option qu'on loue dynamiquement
-      return; // on quitte quand on a ajouté une option
+    if(options[i]==nullptr){ 
+      options[i]=new Option(o); 
+      return;
     }
   }
 }
@@ -98,27 +91,25 @@ void Car::removeOption(std::string code){
   int i;
 
   for(i=0; i<5; i++){
-    if(options[i]!=nullptr && options[i]->getCode()==code){ // si on trouve une option qui n'est pas nulle et dont le code correspond
-      delete options[i]; // on supprime cette option
-      options[i]=nullptr; // on remet le pointeur à null
-      return; // on quitte après avoir supprimé
+    if(options[i]!=nullptr && options[i]->getCode()==code){ 
+      delete options[i]; 
+      options[i]=nullptr; 
+      return;
     }
-
   }
 }
 
-float Car::getPrice() const{ // calcule le prix total de la voiture
+float Car::getPrice() const{ 
   int i;
   float somme;
 
-  somme=model.getBasePrice(); // prix de base du modèle
+  somme=model.getBasePrice(); 
 
   for(i=0; i<5; i++){
-    if(options[i]!=nullptr){ // si l'option pointe vers qqch
-      somme=somme+options[i]->getPrice(); // on fait la somme des prix de tous les potions
+    if(options[i]!=nullptr){ 
+      somme=somme+options[i]->getPrice(); 
     }
   }
-
 
   return somme;
 }

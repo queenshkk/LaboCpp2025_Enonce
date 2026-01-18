@@ -116,14 +116,13 @@ std::ostream& operator<<(std::ostream &s, const Person &p){
 
 
 Person& Person::operator=(const Person &p){
-	if(this==&p) return (*this);
+	if(this==&p) return(*this);
 	
 	setLastName(p.getLastName());
 	setFirstName(p.getFirstName());
 
 
-
-	return (*this);
+	return(*this);
 }
 
 

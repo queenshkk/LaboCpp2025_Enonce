@@ -10,7 +10,7 @@ Model::Model()
     std::cout << "On est dans le constructeur par défaut (Model)" << std::endl;
   #endif
 
-  name=NULL; // initialiser le pointeur à "pas d'adresses"
+  name=NULL; 
 
   setName("/");
   setPower(0);
@@ -53,8 +53,7 @@ Model::~Model()
     std::cout << "On est dans le destructeur (Model)" << std::endl;
   #endif
 
-  if(name) delete [] name; // on vérifie que le pointeur de name n'est pas nul et on libère la mếmoire, on supprime le tableau de char
-  // les int, float ne réservent rien en mémoire donc rien à libérer
+  if(name) delete [] name; 
 }
 
 
@@ -115,7 +114,6 @@ void Model::display() const
   }
   else{
     std::cout << "Pas de nom ";
-   
   }
     
   std::cout << "( " << power << " Ch, ";
@@ -151,19 +149,19 @@ std::istream& operator>>(std::istream& s,Model &m){ // cin >> m
   float basePrice;
   Engine e;
 
-  std::getline(s, balise); // <Model>
+  std::getline(s, balise); 
 
-  std::getline(s, balise); // <name>
+  std::getline(s, balise);
   std::getline(s, name);
-  std::getline(s, balise); // </name>
+  std::getline(s, balise); 
 
 
-  std::getline(s, balise); // <power>
+  std::getline(s, balise); 
   std::getline(s, puissance);
   power=std::stoi(puissance);
-  std::getline(s, balise); // </power>
+  std::getline(s, balise); 
 
-  std::getline(s, balise); // <engine>
+  std::getline(s, balise); 
   std::getline(s, engine);
   if(engine=="essence"){
     e=Petrol;
@@ -174,17 +172,17 @@ std::istream& operator>>(std::istream& s,Model &m){ // cin >> m
   }else{
     e=Hybrid;
   }
-  std::getline(s, balise); // </engine>
+  std::getline(s, balise); 
 
-  std::getline(s, balise); // <baseprice>
+  std::getline(s, balise);
   std::getline(s, price);
   basePrice=std::stof(price);
-  std::getline(s, balise); // </baseprice>
+  std::getline(s, balise); 
 
 
-  std::getline(s, balise); // </Model>
+  std::getline(s, balise); 
 
-  m.setName(name.c_str()); //convertir un string en char
+  m.setName(name.c_str()); 
   m.setPower(power);
   m.setEngine(e);
   m.setBasePrice(basePrice);
@@ -193,7 +191,7 @@ std::istream& operator>>(std::istream& s,Model &m){ // cin >> m
 } 
 
 
-std::ostream& operator<<(std::ostream& s, const Model &m){ // cout << m
+std::ostream& operator<<(std::ostream& s, const Model &m){ 
 
   s << "<Model>\n";
 
@@ -239,18 +237,18 @@ std::string Model::toString() const{
   std::string moteur;
 
  switch (getEngine()){
-      case Petrol:
-        moteur = "Essence";
-        break;
-      case Diesel:
-        moteur = "Diesel";
-        break;
-      case Electric:
-        moteur = "Electrique";
-        break;
-      case Hybrid:
-        moteur = "Hybride";
-        break;
+    case Petrol:
+      moteur="Essence";
+      break;
+    case Diesel:
+      moteur="Diesel";
+      break;
+    case Electric:
+      moteur="Electrique";
+      break;
+    case Hybrid:
+      moteur="Hybride";
+      break;
   }
 
   return std::string(getName()) + " " + std::to_string(getPower()) + " " + moteur + " " + std::to_string(getBasePrice());

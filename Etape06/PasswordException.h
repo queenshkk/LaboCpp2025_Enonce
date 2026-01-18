@@ -26,7 +26,6 @@ public:
 
 	void display() const override;
 
-
 };
 
 #endif

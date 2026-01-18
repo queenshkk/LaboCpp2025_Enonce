@@ -9,3 +9,7 @@ Model.o : Model.cpp Model.h
 	echo "Création compilation Model"
 	$(COMP) Model.cpp -c
 
+clean :
+	rm -f *.o Test1
+
+clobber : clean

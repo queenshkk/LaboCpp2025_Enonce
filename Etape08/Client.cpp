@@ -65,20 +65,20 @@ Client& Client::operator=(const Client &c){
 std::istream& operator>>(std::istream& s, Client &c){
 	std::string balise, ln, fn, i_d, gsm;
 
-	s >> balise; //"<Client>"
-	s >> balise; // "<lastName>"
+	s >> balise; 
+	s >> balise; 
 	s >> ln;
-	s >> balise; // "</lastName>
-	s >> balise; // "<firstName>
+	s >> balise; 
+	s >> balise; 
 	s >> fn;
-	s >> balise; // "</firstName>
-	s >> balise; // "<id>
+	s >> balise; 
+	s >> balise; 
 	s >> balise;
-	s >> balise; // "</id>
-	s >> balise; // "<gsm>
+	s >> balise; 
+	s >> balise; 
 	s >> gsm;
-	s >> balise; // "</gsm>
-	s >> balise; //"</Client>"
+	s >> balise; 
+	s >> balise; 
 
 	c.setLastName(ln);
 	c.setFirstName(fn);
@@ -110,11 +110,11 @@ std::ostream& operator<<(std::ostream& s, const Client &c){
 }
 
 std::string Client::tuple() const {
-    return std::to_string(getId()) + ";" + getLastName() + ";" + getFirstName() + ";" + gsm;
+   return std::to_string(getId()) + ";" + getLastName() + ";" + getFirstName() + ";" + gsm;
 }
 
 std::string Client::toString() const {
-    return "[C" + std::to_string(getId()) + "]" + getLastName() + " " + getFirstName() + " " + std::to_string(getId()) + " " + getGsm();
+   return "[C" + std::to_string(getId()) + "]" + getLastName() + " " + getFirstName() + " " + std::to_string(getId()) + " " + getGsm();
 }
 
 int Client::operator<(const Client& c) const

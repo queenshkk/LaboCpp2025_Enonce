@@ -10,10 +10,6 @@
 #define DIGIT_MISSING 3
 #define NO_PASSWORD 4
 
-//namespace carconfig {
-
-
-
 class PasswordException:public Exception{
 private:
 	int code;
@@ -29,7 +25,6 @@ public:
 
 	void display() const override;
 
-
 };
-//}
+
 #endif

@@ -5,11 +5,9 @@
 #include <iostream>
 #include <string>
 
-
-
 class Person{
 
-protected: // pour que les membres soient accessibles par la classe qui hérite
+protected: 
 	std::string lastName;
 	std::string firstName;
 
@@ -26,15 +24,13 @@ public:
 	std::string getFirstName() const;
 
 
-	virtual void display() const; // virtual : uniquement dans la classe mère. Cette fonction peut être modifiée dans les classes dérivées
+	virtual void display() const; 
 
 	friend std::istream& operator>>(std::istream &s, Person &p);
 	friend std::ostream& operator<<(std::ostream &s, const Person &p);
 
-	
 
 	Person& operator=(const Person &p);
-
 
 };
 

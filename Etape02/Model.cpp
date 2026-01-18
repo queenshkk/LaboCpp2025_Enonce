@@ -6,9 +6,8 @@ namespace carconfig{
 Model::Model()
 {
   std::cout << "On est dans le constructeur par défaut (Model)" << std::endl;
-  name=NULL; // initialiser le pointeur à "pas d'adresses"
+  name=NULL; 
 
-  // On itinialise via les setters
   setName("Nom");
   setPower(0);
   setEngine(Engine::Petrol);
@@ -19,6 +18,7 @@ Model::Model(const  char*n, int p, Engine e, float bp)
 {
   std::cout << "On est dans le constructeur d'initialisation (Model)" << std::endl;
   name=NULL;
+
   setName(n);
   setPower(p);
   setEngine(e);
@@ -40,8 +40,7 @@ Model::Model(const Model &m){ // on passe le Model par référence et non par co
 Model::~Model()
 {
     std::cout << "On est dans le destructeur (Model)" << std::endl;
-    if(name) delete [] name; // on vérifie que le pointeur de name n'est pas nul et on libère la mếmoire, on supprime le tableau de char
-    // les int, float ne réservent rien en mémoire donc rien à libérer
+    if(name) delete [] name; 
 }
 
 
@@ -49,14 +48,12 @@ Model::~Model()
 
 // ***************** SETTLERS du Modèle****************
 void Model::setName(const char *n){ 
-  if (n==NULL) return; // si on ne passe rien comme nom, on ignore
-  if (name==n) return; // si c'est la même adresse, inutile de recopier le même nom
-  if (name) delete [] name; // si name pointe déjà vers qqch, on libère la mémoire
+  if (n==NULL) return; 
+  if (name==n) return; 
+  if (name) delete [] name; 
 
-  name=new char[strlen(n)+1]; // on alloue une nouvelle zone de mémoire de la taille de la chaîne + \0 --> on crée un tableau de caractères
-  strcpy(name, n); // on copie n passé en paramètre dans le nouveau tableau name
-
-
+  name=new char[strlen(n)+1];  
+  strcpy(name, n); 
 }
 
 void Model::setPower(int p){
@@ -76,19 +73,19 @@ void Model::setBasePrice(float bp){
 
 // ***************** GETTERS du Modèle ****************
 const char * Model::getName() const{
-    return name;
+  return name;
 }
 
 int Model::getPower() const{
-    return power;
+  return power;
 }
 
 Engine   Model::getEngine() const{
-    return engine;
+  return engine;
 }
 
 float Model::getBasePrice() const{
-    return basePrice;
+  return basePrice;
 }
 
 
@@ -103,7 +100,8 @@ void Model::display() const
   else{
     std::cout << "Pas de nom ";
   }
-    std::cout << "( " << power << " Ch, ";
+  
+  std::cout << "( " << power << " Ch, ";
 
   switch(engine)
   {

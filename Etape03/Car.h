@@ -8,9 +8,7 @@
 
 namespace carconfig{
 
-
 class Car{
-
 private:
   std::string name;
   Model model; 
@@ -37,17 +35,17 @@ public:
 
   void display() const;
 
-  Car& operator=(const Car &c); // c1=c2
-  Car operator+ (const Option &o) const; // c3=c2+op1
-  friend Car operator+ (const Option &o, const Car &c); // c3=op2 + c3
-  Car operator- (const Option &o) const; // c3=c3-op1
-  Car operator- (std::string code) const; // c3=c3- "ZH75"
+  Car& operator=(const Car &c); 
+  Car operator+ (const Option &o) const; 
+  friend Car operator+ (const Option &o, const Car &c); 
+  Car operator- (const Option &o) const; 
+  Car operator- (std::string code) const; 
 
   int operator>(const Car& c) const;
   int operator==(const Car& c) const;
   int operator<(const Car& c) const;
 
-  friend std::ostream &operator<<(std::ostream &s, const Car &c); // cout << "Projet de Mr Dugenou :” << c1 << endl;
+  friend std::ostream &operator<<(std::ostream &s, const Car &c); 
 
   Option* operator[](int i);
 

@@ -755,10 +755,10 @@ void ApplicGarageWindow::on_actionNewOption_triggered()
     cout << "label = " << label << endl;
     cout << "price = " << price << endl;
 
-    Car& currentProject=Garage::getCurrentProject(); //on prend la voiture actuelle
+    Car& currentProject=Garage::getCurrentProject(); 
     
     for(i=0; i<5; i++){
-        Option *o=currentProject[i]; // on accèse à une option du projet
+        Option *o=currentProject[i]; 
         if(o!=nullptr && o->getCode()==code){
             this->dialogError("Erreur", "Option avec ce code existe déjà");
             return;
@@ -772,7 +772,7 @@ void ApplicGarageWindow::on_actionNewOption_triggered()
         this->addAvailableOption(label, price);
 
     }catch(const OptionException &e){
-        this->dialogError("Erreur", e.getMessage().c_str()); // Qt utilise char *
+        this->dialogError("Erreur", e.getMessage().c_str());
         return;
     }
     
@@ -869,8 +869,8 @@ void ApplicGarageWindow::on_pushButtonSelectModel_clicked()
         return;
     }
 
-    Model m=Garage::getInstance().getModel(indice); // récupère le modèle actuel
-    Garage::getCurrentProject().setModel(m);// on l'affecte à la voiture courante
+    Model m=Garage::getInstance().getModel(indice); 
+    Garage::getCurrentProject().setModel(m);
 
     MAJprojetEnCours();
 

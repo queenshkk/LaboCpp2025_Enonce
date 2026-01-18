@@ -5,15 +5,11 @@
 #include <string>
 #include "Actor.h"
 
-
-
 class Employee:public Actor{
 private:
 	std::string login;
 	std::string* password;
 	std::string role;
-
-
 
 public:
 	Employee();

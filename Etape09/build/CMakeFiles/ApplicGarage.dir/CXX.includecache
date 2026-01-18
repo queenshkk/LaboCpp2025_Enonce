@@ -106,12 +106,6 @@ iostream
 string
 -
 
-../includes/XmlFileSerializerException.h
-string
--
-Exception.h
-../includes/Exception.h
-
 ../includes/applicgaragewindow.h
 QMainWindow
 -
@@ -174,10 +168,6 @@ Employee.h
 PasswordException.h
 /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/PasswordException.h
 
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/Exception.cpp
-Exception.h
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/Exception.h
-
 /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/Garage.cpp
 Garage.h
 /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/Garage.h
@@ -196,21 +186,9 @@ OptionException.h
 iostream
 -
 
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/OptionException.cpp
-OptionException.h
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/OptionException.h
-
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/PasswordException.cpp
-PasswordException.h
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/PasswordException.h
-
 /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/Person.cpp
 Person.h
 /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/Person.h
-
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/XmlFileSerializerException.cpp
-XmlFileSerializerException.h
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/XmlFileSerializerException.h
 
 /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/applicgaragewindow.cpp
 applicgaragewindow.h
@@ -235,42 +213,6 @@ Option.h
 /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/Option.h
 OptionException.h
 /home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/OptionException.h
-
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/main.cpp
-applicgaragewindow.h
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/applicgaragewindow.h
-QApplication
--
-QScreen
--
-
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/moc_applicgaragewindow.cpp
-applicgaragewindow.h
-/home/student/Documents/LaboCpp2025_Enonce/Etape09/sources/applicgaragewindow.h
-QtCore/qbytearray.h
--
-QtCore/qmetatype.h
--
-
-/usr/include/qt5/QtCore/QList
-qlist.h
-/usr/include/qt5/QtCore/qlist.h
-
-/usr/include/qt5/QtCore/QObject
-qobject.h
-/usr/include/qt5/QtCore/qobject.h
-
-/usr/include/qt5/QtCore/QRect
-qrect.h
-/usr/include/qt5/QtCore/qrect.h
-
-/usr/include/qt5/QtCore/QSize
-qsize.h
-/usr/include/qt5/QtCore/qsize.h
-
-/usr/include/qt5/QtCore/QSizeF
-qsize.h
-/usr/include/qt5/QtCore/qsize.h
 
 /usr/include/qt5/QtCore/QVariant
 qvariant.h
@@ -1022,14 +964,6 @@ QtCore/qpoint.h
 QtCore/qglobal.h
 -
 
-/usr/include/qt5/QtGui/QScreen
-qscreen.h
-/usr/include/qt5/QtGui/qscreen.h
-
-/usr/include/qt5/QtGui/QTransform
-qtransform.h
-/usr/include/qt5/QtGui/qtransform.h
-
 /usr/include/qt5/QtGui/qbrush.h
 QtGui/qtguiglobal.h
 -
@@ -1306,24 +1240,6 @@ QtCore/qprocessordetection.h
 QtGui/qtguiglobal.h
 -
 QtCore/qprocessordetection.h
--
-
-/usr/include/qt5/QtGui/qscreen.h
-QtGui/qtguiglobal.h
--
-QtCore/QList
--
-QtCore/QObject
--
-QtCore/QRect
--
-QtCore/QSize
--
-QtCore/QSizeF
--
-QtGui/QTransform
--
-QtCore/qnamespace.h
 -
 
 /usr/include/qt5/QtGui/qtextcursor.h

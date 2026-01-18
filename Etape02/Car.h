@@ -9,11 +9,11 @@
 namespace carconfig{
 
 
-class Car{ // on déclare la classe Car
+class Car{ 
 private:
-  std::string name; // variable membre
-  Model model; // objet Model
-  Option* options[5]; // tableau de 5 pointeurs vers Option
+  std::string name; 
+  Model model; 
+  Option* options[5]; 
 
 public:
   Car();
@@ -27,7 +27,7 @@ public:
   std::string getName() const;
   Model       getModel() const;
 
-  void addOption(const Option &o); // la fonction ne reçoit pas une copie, mais une référence. On regarde l'objet sans le copier
+  void addOption(const Option &o); 
   void removeOption(std::string code);
   float getPrice() const;
 

@@ -1,44 +1,38 @@
-#ifndef MODEL_H //Créer une constante de pré-compilation, on définit une variable
+#ifndef MODEL_H 
 #define MODEL_H
 
-#include <iostream> //Définition des opérations d'entrée/sorties
-#include <cstring> //Permet d'avoir les méthodes qui permettent de manipuler les chaines de caractères
+#include <iostream> 
+#include <cstring>
+
+enum Engine { Petrol, Diesel, Electric, Hybrid }; 
 
 
-
-
-enum Engine { Petrol, Diesel, Electric, Hybrid }; //On définit une énumération
-
-
-class Model //On définit une classe
+class Model 
 {
 
-private: //pas d'accès direct aux différents membres
-  char * name; //On déclare les variabels membres de la classe
+private: 
+  char * name;
   int power;
   Engine engine;
   float basePrice;
 
-public: //tout ce qui est publique peut être accessible en dehors de la classe
-  Model(); //On rajoute les méthodes qu'on va définir pour cette classe
-  Model(const  char*n, int p, Engine e, float bp);//On déclare du constructeur d'initialisation. En plus d'alouer l'espace memmoire, il initialise les valeurs des differents champs
-  Model(const Model &m); //passé par référence
-  ~Model();//destructeur
+public: 
+  Model();
+  Model(const  char*n, int p, Engine e, float bp);
+  Model(const Model &m); 
+  ~Model();
   
-  void setName(const char *n); //const = recevoir en paramètres des chaines constantes
-  //Méthodes SET = donne une valeur aux variables membres.
+  void setName(const char *n); 
   void setPower(int p);
   void setEngine(Engine e);
   void setBasePrice(float bp);
 
-  const char *getName() const; //Les méthodes GET retournent la valeur de la variable membre correspondante. On retourne l'adresse de la chaine de caractere.
-  //const au début, la méthode ne peut pas modifier la chaine dont on reçoit l'adresse.
-  //const derriere =empeche les methodes de modifier les valeurs de la variable membre. on le mettre toujours
+  const char *getName() const;  
   int         getPower() const;
   Engine      getEngine() const;
   float       getBasePrice() const;
 
-  void display() const;//On appelle la méthode qu'on a besoin
+  void display() const;
 
 };
 

@@ -29,15 +29,12 @@ Actor::~Actor(){
 	#ifdef DEBUG
 		std::cout << "On est dans le destructeur (Actor)" << std::endl;
 	#endif
-
 }
 
 // ***************** Setters Actor ****************
 void Actor::setId(const int i_d){
 	if(i_d<0) return;
-
 	id=i_d;
-	
 }
 
 
@@ -48,15 +45,11 @@ int Actor::getId() const{
 
 // ***************** Méthodes d'instance Actor ****************
 void Actor::display() const{
-
 	Person::display();
 
 	std::cout << "Id : " << id << std::endl;
 
 }
-
-
-
 
 // ***************** Opérateurs de surcharge ****************
 

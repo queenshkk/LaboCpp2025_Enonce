@@ -757,10 +757,10 @@ void ApplicGarageWindow::on_actionNewOption_triggered()
     cout << "label = " << label << endl;
     cout << "price = " << price << endl;
 
-    Car& currentProject=Garage::getCurrentProject(); //on prend la voiture actuelle
+    Car& currentProject=Garage::getCurrentProject(); 
     
     for(i=0; i<5; i++){
-        Option *o=currentProject[i]; // on accèse à une option du projet
+        Option *o=currentProject[i]; 
         if(o!=nullptr && o->getCode()==code){
             dialogError("Erreur", "Option avec ce code existe déjà");
             return;
@@ -774,7 +774,7 @@ void ApplicGarageWindow::on_actionNewOption_triggered()
         addAvailableOption(label, price);
 
     }catch(const OptionException &e){
-        dialogError("Erreur", e.getMessage().c_str()); // Qt utilise char *
+        dialogError("Erreur", e.getMessage().c_str());
         return;
     }
     
@@ -795,7 +795,7 @@ void ApplicGarageWindow::on_actionAddEmployee_triggered()
 
     string firstName = this->dialogPromptText("Nouvel employé","Prénom :");
     if(firstName==""){
-        dialogError("Erreur", "Nom invalide");
+        dialogError("Erreur", "Prénom invalide");
         return;
     }
 
@@ -946,7 +946,6 @@ void ApplicGarageWindow::on_actionLogin_triggered()
 {
     // TO DO (étape 11)
     int i, idEmploye=-1;
-    Employee e;
 
     cout << ">>> Clic sur item Login <<<" << endl;
     string login = this->dialogPromptText("Entrer en session","Login :");
@@ -956,32 +955,29 @@ void ApplicGarageWindow::on_actionLogin_triggered()
         return;
     }
 
-    Garage &g = Garage::getInstance();
+    Garage &g=Garage::getInstance();
+    Employee e=g.findEmployeeLogin(login);
+   
 
-    for(i=0; i<g.getNbEmployees(); i++){
-        Employee emp=g.findEmployeeByIndex(i);
-
-        if(emp.getLogin()==login){
-            idEmploye=i;
-            e=emp;
-            break;
-        }
-    }
-
-    if(idEmploye==-1){
+    if(e.getLogin()=="")
+    {
         dialogError("Erreur", "Login inexistant");
         return;
     }
 
-
-    string mdp=dialogPromptText("Entrer en session", "Mot de passe :");
-    if(mdp==""){
-        dialogError("Erreur", "Mot de passe invalide");
-        return;
-    }
+    
 
     try{
-        if(mdp!=e.getPassword()){
+        string trouvemdp=e.getPassword();
+
+        string mdp=dialogPromptText("Entrer en session", "Mot de passe :");
+        if(mdp==""){
+            dialogError("Erreur", "Mot de passe invalide");
+            return;
+        }
+
+
+        if(mdp!=trouvemdp){
             dialogError("Erreur", "Mot de passe incorrect");
             return;
         }
@@ -1003,7 +999,7 @@ void ApplicGarageWindow::on_actionLogin_triggered()
         dialogMessage("Information", "Mot de passe enregistré. Veuillez vous reconnecter.");
         return;
 
-    return;
+    
     }
 
     Garage::idLoggedEmployee=e.getId();
@@ -1014,7 +1010,7 @@ void ApplicGarageWindow::on_actionLogin_triggered()
     }
 
     setTitle(e.getLastName());
-    
+    MAJtableEmployes();
 
 }
 
@@ -1035,7 +1031,7 @@ void ApplicGarageWindow::on_actionLogout_triggered()
 
 
 
-    Garage::idLoggedEmployee==-1;
+    Garage::idLoggedEmployee=-1;
 
 
 }
@@ -1045,15 +1041,16 @@ void ApplicGarageWindow::on_actionResetPassword_triggered()
 {
     // TO DO (étape 11)
     cout << ">>> clic sur item ResetPassword <<<" << endl;
-    Garage &g=Garage::getInstance();
 
     if(Garage::idLoggedEmployee==-1){
         dialogError("Erreur", "Aucun employé sélectionné");
         return;
     }
 
+    Garage &g=Garage::getInstance();
+
     Employee e=g.findEmployeeById(Garage::idLoggedEmployee);
-    if(e.getId()==0){
+    if(e.getId()==-1){
         dialogError("Erreur", "Employé introuvable");
         return;
     }
@@ -1082,8 +1079,8 @@ void ApplicGarageWindow::on_pushButtonSelectModel_clicked()
         return;
     }
 
-    Model m=Garage::getInstance().getModel(indice); // récupère le modèle actuel
-    Garage::getCurrentProject().setModel(m);// on l'affecte à la voiture courante
+    Model m=Garage::getInstance().getModel(indice); 
+    Garage::getCurrentProject().setModel(m);
 
     MAJprojetEnCours();
    
@@ -1210,7 +1207,7 @@ void ApplicGarageWindow::on_pushButtonOpenProject_clicked()
 
     
     currentProject.load(projectName);
-    currentProject.setName(projectName); //car le load ne remet pas le nom du projet
+    currentProject.setName(projectName); 
 
 
     MAJprojetEnCours();

@@ -4,9 +4,6 @@
 #include <iostream>
 #include <string>
 
-//namespace carconfig{
-
-
 class Exception{
 protected:
 	std::string message;
@@ -22,7 +19,6 @@ public:
 	std::string getMessage() const;
 
 	virtual void display() const;
-
 };
-//}
+
 #endif

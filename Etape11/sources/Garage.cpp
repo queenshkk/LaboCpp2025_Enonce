@@ -10,14 +10,14 @@ Garage::Garage(){
 }
 
 void Garage::addModel(const Model & m){
-	models.push_back(m); // alloue et insère une nouvelle case à la fin de la liste
+	models.push_back(m); 
 }
 
 void Garage::displayAllModels() const{
-	std::list<Model>::const_iterator it; // car la méthode est const, on ne peut pas modifier
+	std::list<Model>::const_iterator it;  
 
-	for(it=models.cbegin(); it!=models.cend(); it++){ // cbegin, cend car c'est une méthode const
-		std::cout << (*it).toString() << std::endl; // pour afficher tous les modèles de la liste
+	for(it=models.cbegin(); it!=models.cend(); it++){ 
+		std::cout << (*it).toString() << std::endl; 
 	}
 }
 
@@ -90,9 +90,9 @@ int Garage::addClient(std::string lastName, std::string firstName, std::string g
 	int id;
 
 	id=c.getId();
-	clients.insert(c);  // alloue et insère une nouvelle case au bon endroit
+	clients.insert(c);  
 
-	return id; // id généré automatiquement
+	return id; 
 }
 
 void Garage::displayClients() const{
@@ -103,9 +103,7 @@ void Garage::displayClients() const{
 	}
 }
 
-int Garage::getNbClients() const { 
-	return clients.size();
-}
+
 
 void Garage::deleteClientByIndex(int index){
 	std::set<Client>::iterator it;
@@ -132,8 +130,8 @@ void Garage::deleteClientById(int id){
 
 	for(it=clients.begin(); it!=clients.end(); it++){
 		if(it->getId()==id){
-		clients.erase(it);
-		return;
+			clients.erase(it);
+			return;
 		}
 	}
 
@@ -170,7 +168,7 @@ Client Garage::findClientById(int id) const{
 		}
 	}
 
-	return Client(); // si rien, retourne Client vide
+	return Client(); 
 
 }
 
@@ -192,9 +190,7 @@ void Garage::displayEmployees() const{
 	}
 }
 
-int Garage::getNbEmployees() const {
-	return employees.size();
-}
+
 
 void Garage::updateEmployee(const Employee &e){
 	deleteEmployeeById(e.getId());
@@ -263,8 +259,20 @@ Employee Garage::findEmployeeById(int id) const{
 	return Employee();
 }
 
+Employee Garage::findEmployeeLogin(const std::string &login) const
+{
+	std::set<Employee>::const_iterator it;
 
-Garage Garage::instance; // on crée l'instance
+    for(it=employees.cbegin(); it!=employees.cend(); it++)
+    {
+        if(it->getLogin()==login){
+        	return *it;
+        }
+    }
+    return Employee(); 
+}
+
+Garage Garage::instance; 
 
 Car Garage::currentProject;
 
@@ -278,7 +286,7 @@ Car& Garage::getCurrentProject(){
 }
 
 void Garage::resetCurrentProject(){
-	currentProject=Car(); // remet tout par défaut
+	currentProject=Car(); 
 }
 
 void Garage::importModelsFromCsv(std::string filename){

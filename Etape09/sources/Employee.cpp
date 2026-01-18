@@ -11,7 +11,6 @@ Employee::Employee():Actor(){
 	password=nullptr;
 
 	setLogin("/");
-	// on ne met pas de setPassword sinon ça alloue un password en mémoire alors que ça doit être nullptr
 	setRole("/");
 
 }
@@ -32,14 +31,14 @@ Employee::Employee(const Employee &e):Actor(e){
 		std::cout << "On est dans le constructeur de copie (Employee)" << std::endl;
 	#endif
 	
-	password = nullptr;
+	password=nullptr;
 
 	setLogin(e.getLogin());
 	setRole(e.getRole());
 
 
-	if (e.password){ // si le pointeur n'est pas null
-		password = new std::string(*e.password); // on fait une allocation dynamique
+	if(e.password){ 
+		password=new std::string(*e.password); 
 	}
 
 
@@ -70,13 +69,13 @@ void Employee::setPassword(const std::string mdp){
 	}
 
 	for(i=0;i<taille; i++){
-		if ((mdp[i] >= 'A' && mdp[i] <= 'Z') || (mdp[i] >= 'a' && mdp[i] <= 'z')){
+		if((mdp[i] >= 'A' && mdp[i] <= 'Z') || (mdp[i] >= 'a' && mdp[i] <= 'z')){
 			lettre++;
 		}
         
-        if (mdp[i] >= '0' && mdp[i] <= '9'){
-        	chiffre++;
-        }
+    if(mdp[i] >= '0' && mdp[i] <= '9'){
+    	chiffre++;
+    }
 	}
 
 	if(lettre==0){
@@ -87,7 +86,7 @@ void Employee::setPassword(const std::string mdp){
 		throw PasswordException("Erreur mdp", 3);
 	}
 
-	password=new std::string(mdp); // on alloue dynamiquement un mdp
+	password=new std::string(mdp); 
 }
 
 void Employee::setRole(const std::string r){
@@ -101,8 +100,8 @@ std::string Employee::getLogin() const{
 }
 
 std::string Employee::getPassword() const{
-	if(password!=nullptr){ // si password point vers quelque chose
-		return *password; // on retourne le contenu du string
+	if(password!=nullptr){ 
+		return *password;
 	}
 	else{
 		throw PasswordException("Erreur mdp", 4);
@@ -140,7 +139,7 @@ Employee& Employee::operator=(const Employee&e){
 	delete password;
 	password = nullptr;
 
-	if (e.password){
+	if(e.password){
 		password = new std::string(*e.password);     
 	}
 
@@ -149,11 +148,11 @@ Employee& Employee::operator=(const Employee&e){
 
 std::ostream& operator<<(std::ostream&s, const Employee&e){
 	s << "Nom : " << e.getLastName() << "\n";
-    s << "Prénom : " << e.getFirstName() << "\n";
-    s << "Id : " << e.getId() << "\n";
-    if (e.password!=nullptr){
-    	s << "Password : " << *(e.password) << "\n";
-    }
+  s << "Prénom : " << e.getFirstName() << "\n";
+  s << "Id : " << e.getId() << "\n";
+  if (e.password!=nullptr){
+  	s << "Password : " << *(e.password) << "\n";
+  }
 	else{
     	s << "Pas de mdp\n";
 

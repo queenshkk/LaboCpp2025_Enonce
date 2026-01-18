@@ -46,13 +46,11 @@ Option::~Option(){
 
 // ***************** SETTERS ****************
 void Option::setCode(std::string c){
-	
-
 	if(c.size()!=4){
 		throw OptionException("Le code doit comporter 4 caractères");
 	}
 
-	code = c;
+	code=c;
 }
 
 void Option::setLabel(std::string l){
@@ -60,7 +58,7 @@ void Option::setLabel(std::string l){
 		throw OptionException("L'intitulé ne peut pas être vide");
 	}
 
-	label= l;
+	label=l;
 }
 
 void Option::setPrice(float p){
@@ -109,8 +107,7 @@ void Option::display() const{
 }
 
 // ***************** Surcharge d'opérateurs flux (<<, >>) ****************
-
-std::istream& operator>>(std::istream& s, Option &o){ // cin >> op1
+std::istream& operator>>(std::istream& s, Option &o){ 
 	std::string code, label;
 	float price;
 
@@ -132,16 +129,15 @@ std::istream& operator>>(std::istream& s, Option &o){ // cin >> op1
 }
 
 
-std::ostream& operator<<(std::ostream& s,const Option &o){ // cout << op1
-
-	if (o.code!=""){
+std::ostream& operator<<(std::ostream& s,const Option &o){ 
+	if(o.code!=""){
 		s << "Code : " << o.code << "\n"; 
 	}
 	else{
 		s << "Pas de code";
 	}
 
-	if (o.label!=""){
+	if(o.label!=""){
 		s << "Label : " << o.label << "\n"; 
 	}
 	else{
@@ -150,42 +146,32 @@ std::ostream& operator<<(std::ostream& s,const Option &o){ // cout << op1
 
 	s << "Prix option : " << o.price << "\n";
 
-
 	return s;
 
 } 
 
 // ***************** Surcharge d'opérateurs de pré/post-incrémentation (++, --) ****************
-
-Option Option::operator--(){ // pré-incrémentation : on baisse le prix avant d'afficher l'option
-	
-	if(price-50 < 0.0){
+Option Option::operator--(){ 
+	if(price-50<0.0){
 		throw OptionException("Impossible, prix ne peut pas être négatif");
 	}
 	else{
-		price = price - 50; 
-
+		price=price-50; 
 	}
-	
-	
 
 	return (*this);
 }
 
-Option Option::operator--(int){ // post-incrémentation : on affiche l'option puis on baisse le prix
-	Option op2(*this); // on copie l'objet actuel
+Option Option::operator--(int){ 
+	Option op2(*this); 
 
-	if(price-50 < 0.0){
+	if(price-50<0.0){
 		throw OptionException("Impossible, prix ne peut pas être négatif");
 	}
 	else{
-		price = price - 50; 
-
+		price=price-50; 
 	}
 	return op2;
 }
-
-
-
 
 }

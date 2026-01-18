@@ -9,7 +9,6 @@ namespace carconfig{
 
 enum Engine {Petrol, Diesel, Electric, Hybrid}; 
 
-
 class Model{
 
 private: 
@@ -29,7 +28,6 @@ public:
   void setEngine(Engine e);
   void setBasePrice(float bp);
 
-
   const char* getName() const; 
   int         getPower() const;
   Engine      getEngine() const;
@@ -37,11 +35,10 @@ public:
 
   void display() const;
 
-  friend std::istream& operator>>(std::istream& s, Model &m); // cin >> m, friend permet d'accéder les variables vu qu'ils sont en private
-  friend std::ostream& operator<<(std::ostream& s, const Model &m); // cout << m
+  friend std::istream& operator>>(std::istream& s, Model &m); 
+  friend std::ostream& operator<<(std::ostream& s, const Model &m);
 
 };
 }
-
 
 #endif

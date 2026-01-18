@@ -2,8 +2,6 @@
 
 
 // ***************** Constructeurs de Personne ****************
-//namespace carconfig {
-
 Person::Person(){
 	#ifdef DEBUG
 		std::cout << "On est dans le constructeur par défaut (Personne)" << std::endl;
@@ -34,13 +32,11 @@ Person::Person(const Person &p){
 }
 
 // ***************** Destructeur de Personne ****************
-
 Person::~Person(){
 	#ifdef DEBUG
-	std::cout << "On est dans le destructeur (Personne)" << std::endl;
+		std::cout << "On est dans le destructeur (Personne)" << std::endl;
 	#endif
-
-} // on ne fait rien car string gère tout
+} 
 
 // ***************** Setters de Personne ****************
 void Person::setLastName(std::string ln){	
@@ -81,7 +77,6 @@ void Person::display()const{
 
 // ***************** Surcharge d'opérateurs ****************
 std::istream& operator>>(std::istream &s, Person &p){
-	
 	std::string firstName, lastName;
 	
 	std::cout << "Nom : ";
@@ -111,7 +106,6 @@ std::ostream& operator<<(std::ostream &s, const Person &p){
 		s << "Pas de prénom\n";
 	}
 	
-
 	return s;
 }
 
@@ -122,10 +116,7 @@ Person& Person::operator=(const Person &p){
 	setLastName(p.getLastName());
 	setFirstName(p.getFirstName());
 
-
-
 	return (*this);
 }
 
 
-//}

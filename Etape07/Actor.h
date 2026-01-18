@@ -5,7 +5,7 @@
 #include <string>
 #include "Person.h"
 
-class Actor : public Person{
+class Actor:public Person{
 
 private:
 	int id;
@@ -24,15 +24,10 @@ public:
 	virtual std::string tuple() const =0;
 	virtual std::string toString() const =0;
 
-
-
-	void display() const override; // override : uniquement dans classe fille. Cette fonction remplace la classe mère
-
+	void display() const override; 
 
 	Actor &operator=(const Actor &a);
 
-
 };
-
 
 #endif

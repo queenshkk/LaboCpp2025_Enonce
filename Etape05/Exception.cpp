@@ -1,8 +1,5 @@
 #include "Exception.h"
 
-//namespace carconfig{
-
-
 Exception::Exception(){
 	#ifdef DEBUG
 		std::cout << "On est dans le constructeur par défaut (Exception)" << std::endl;
@@ -41,14 +38,8 @@ std::string Exception::getMessage() const{
 
 void Exception::display() const{
 	if(message!=""){
-		
 		std::cout << "Message : " << message << std::endl;
-		
 	}else{
-		
-		std::cout << "Pas de message" << std::endl;
-		
+		std::cout << "Pas de message" << std::endl;	
 	}
 }
-
-//}

@@ -12,7 +12,7 @@ private:
 	static int currentId;
 	
 protected:
-	void setId(const int i_d); //usage interne
+	void setId(const int i_d); 
 	
 public:
 
@@ -29,7 +29,7 @@ public:
 
 
 
-	void display() const override; // override : uniquement dans classe fille. Cette fonction remplace la classe mère
+	void display() const override; 
 
 
 	Actor &operator=(const Actor &a);

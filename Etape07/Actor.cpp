@@ -34,7 +34,6 @@ Actor::~Actor(){
 // ***************** Setters Actor ****************
 void Actor::setId(const int i_d){
 	if(i_d<0) return;
-
 	id=i_d;
 	
 }
@@ -53,8 +52,6 @@ void Actor::display() const{
 	std::cout << "Id : " << id << std::endl;
 
 }
-
-
 
 
 // ***************** Opérateurs de surcharge ****************

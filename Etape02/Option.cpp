@@ -29,22 +29,15 @@ Option::Option(const Option &o){
 // ***************** Destructeur  ****************
 Option::~Option(){
 	std::cout << "On est dans le destructeur (Option)" << std::endl;
-	// rien à delete car les string gère leur propre mémoire
 }
 
 // ***************** SETTERS ****************
 void Option::setCode(std::string c){
-	/*if(c=="") return; // si la chaine est vide, on ne fait rien
-	if(code==c) return;*/ // pas besoin de faire ça car string gère lui même
-
-	code = c;
+	code=c;
 }
 
 void Option::setLabel(std::string l){
-	/*if(l=="") return;
-	if(label==l) return;*/ // pas besoin de faire ça car string gère lui même
-
-	label= l;
+	label=l;
 }
 
 void Option::setPrice(float p){
@@ -83,7 +76,7 @@ void Option::display() const{
 		std::cout << "Pas de label";
 	}
 
-	std::cout << "Prix l'option : " << price << std::endl;
+	std::cout << "Prix de l'option : " << price << std::endl;
 
 
 }

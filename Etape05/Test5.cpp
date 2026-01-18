@@ -120,7 +120,6 @@ try{
   }
   catch (OptionException& oe) {
     std::cout << "Erreur option : " << oe.getMessage() << std::endl;
-    
   }
   
   cout << endl;

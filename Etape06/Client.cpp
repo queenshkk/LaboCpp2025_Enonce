@@ -49,11 +49,9 @@ void Client::display() const{
 }
 
 
-
-
 // ***************** Opérateurs de surcharge ****************
 Client& Client::operator=(const Client &c){
-	if(this==&c) return (*this);
+	if(this==&c) return(*this);
 
 	Actor::operator=(c);
 	setGsm(c.getGsm());
@@ -66,21 +64,21 @@ std::istream& operator>>(std::istream& s, Client &c){
 	std::string balise, ln, fn, i_d, gsm;
 	int id;
 
-	std::getline(s, balise); //"<Client>"
-	std::getline(s, balise); // "<lastName>"
+	std::getline(s, balise); 
+	std::getline(s, balise); 
 	std::getline(s, ln);
-	std::getline(s, balise); // "</lastName>
-	std::getline(s, balise); // "<firstName>
+	std::getline(s, balise); 
+	std::getline(s, balise); 
 	std::getline(s, fn);
-	std::getline(s, balise); // "</firstName>
-	std::getline(s, balise); // "<id>
+	std::getline(s, balise); 
+	std::getline(s, balise); 
 	std::getline(s, i_d);
 	id=std::stoi(i_d);
-	std::getline(s, balise); // "</id>
-	std::getline(s, balise); // "<gsm>
+	std::getline(s, balise); 
+	std::getline(s, balise); 
 	std::getline(s, gsm);
-	std::getline(s, balise); // "</gsm>
-	std::getline(s, balise); //"</Client>"
+	std::getline(s, balise); 
+	std::getline(s, balise); 
 
 	c.setLastName(ln);
 	c.setFirstName(fn);

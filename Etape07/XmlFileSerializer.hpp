@@ -15,9 +15,9 @@ private:
 	std::string collectionName;
 
 public:
-	XmlFileSerializer() = delete;
+	XmlFileSerializer()=delete;
 	XmlFileSerializer(const std::string &fn, char m, const std::string &cn = "entities");
-	XmlFileSerializer (const XmlFileSerializer<T>&) = delete;
+	XmlFileSerializer(const XmlFileSerializer<T>&)=delete;
 	~XmlFileSerializer();
 
 
@@ -26,8 +26,8 @@ public:
 	bool isReadable();
 	bool isWritable();
 
-	void write(const T & val); // sérialisation <<
-	T read(); // désérialisarion >>
+	void write(const T & val); 
+	T read(); 
 
 	XmlFileSerializer<T>&operator=(const XmlFileSerializer<T>&)=delete;
 	static const char READ;

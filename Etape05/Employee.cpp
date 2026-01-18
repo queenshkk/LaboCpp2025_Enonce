@@ -1,9 +1,6 @@
 #include "Employee.h"
 #include "PasswordException.h"
 
-//namespace carconfig {
-
-
 // ***************** Constructeurs Employee ****************
 Employee::Employee():Actor(){
 	#ifdef DEBUG
@@ -13,7 +10,6 @@ Employee::Employee():Actor(){
 	password=nullptr;
 
 	setLogin("/");
-	// on ne met pas de setPassword sinon ça alloue un password en mémoire alors que ça doit être nullptr
 	setRole("/");
 
 }
@@ -34,16 +30,15 @@ Employee::Employee(const Employee &e):Actor(e){
 		std::cout << "On est dans le constructeur de copie (Employee)" << std::endl;
 	#endif
 	
-	password = nullptr;
+	password=nullptr;
 
 	setLogin(e.getLogin());
 	setRole(e.getRole());
 
 
-	if (e.password){ // si le pointeur n'est pas null
-		password = new std::string(*e.password); // on fait une allocation dynamique
+	if(e.password){ 
+		password=new std::string(*e.password); 
 	}
-
 
 }
 
@@ -54,7 +49,7 @@ Employee::~Employee(){
 	#endif
 
 	delete password;
-    password = nullptr;
+    password=nullptr;
 }
 
 // ***************** Setters Employee ****************
@@ -72,11 +67,11 @@ void Employee::setPassword(const std::string mdp){
 	}
 
 	for(i=0;i<taille; i++){
-		if ((mdp[i] >= 'A' && mdp[i] <= 'Z') || (mdp[i] >= 'a' && mdp[i] <= 'z')){
+		if((mdp[i] >= 'A' && mdp[i] <= 'Z') || (mdp[i] >= 'a' && mdp[i] <= 'z')){
 			lettre++;
 		}
         
-        if (mdp[i] >= '0' && mdp[i] <= '9'){
+        if(mdp[i] >= '0' && mdp[i] <= '9'){
         	chiffre++;
         }
 	}
@@ -89,7 +84,7 @@ void Employee::setPassword(const std::string mdp){
 		throw PasswordException("---> Pas de chiffre", 3);
 	}
 
-	password=new std::string(mdp); // on alloue dynamiquement un mdp
+	password=new std::string(mdp);
 }
 
 void Employee::setRole(const std::string r){
@@ -103,8 +98,8 @@ std::string Employee::getLogin() const{
 }
 
 std::string Employee::getPassword() const{
-	if(password!=nullptr){ // si password point vers quelque chose
-		return *password; // on retourne le contenu du string
+	if(password!=nullptr){ 
+		return *password; 
 	}
 	else{
 		throw PasswordException("Pas de mdp", 4);
@@ -123,7 +118,6 @@ void Employee::resetPassword()
 
 // ***************** Méthodes d'instance Employee ****************
 void Employee::display() const{
-
 	Actor::display();
 	std::cout << "Login : " << login << std::endl;
 	std::cout << "Role : " << role << std::endl;
@@ -131,7 +125,6 @@ void Employee::display() const{
 
 
 // ***************** Opérateurs de surcharge ****************
-
 Employee& Employee::operator=(const Employee&e){
 	if(this==&e) return (*this);
 
@@ -140,10 +133,10 @@ Employee& Employee::operator=(const Employee&e){
 	setRole(e.getRole());
 
 	delete password;
-	password = nullptr;
+	password=nullptr;
 
-	if (e.password){
-		password = new std::string(*e.password);     
+	if(e.password){
+		password=new std::string(*e.password);     
 	}
 
 	return (*this);
@@ -181,7 +174,5 @@ std::string Employee::toString() const {
     
 }
 
-const std::string Employee::ADMINISTRATIVE = "Administratif";
-const std::string Employee::SELLER = "Vendeur";
-
-//}
+const std::string Employee::ADMINISTRATIVE="Administratif";
+const std::string Employee::SELLER="Vendeur";

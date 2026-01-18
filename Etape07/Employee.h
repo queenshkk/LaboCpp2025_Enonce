@@ -12,8 +12,6 @@ private:
 	std::string* password;
 	std::string role;
 
-
-
 public:
 	Employee();
 	Employee(std::string ln, std::string fn, int i_d, std::string log, std::string r);

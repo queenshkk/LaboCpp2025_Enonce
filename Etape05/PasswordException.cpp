@@ -1,7 +1,5 @@
 #include "PasswordException.h"
 
-//namespace carconfig {
-
 PasswordException::PasswordException():Exception("Erreur mdp\n"){
 	#ifdef DEBUG
 		std::cout << "On est dans le constructeur par défaut (PasswordException)" << std::endl;
@@ -34,7 +32,6 @@ PasswordException::~PasswordException(){
 }
 
 void PasswordException::setCode(int c){
-	
 	code=c;
 }
 
@@ -43,7 +40,6 @@ int PasswordException::getCode() const{
 }
 
 void PasswordException::display() const{
-
     Exception::display();
 
 	switch(code)
@@ -63,7 +59,6 @@ void PasswordException::display() const{
   	}
 
 }
-//}
-	 
+
 
 

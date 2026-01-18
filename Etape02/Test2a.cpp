@@ -5,7 +5,6 @@ using namespace carconfig;
 
 // Tests de base de la classe Car (sans les options)
 
-
 int main()
 {
   std::cout << std::endl << "(1) ***** Test du constructeur par defaut de Car *******************************" << std::endl;

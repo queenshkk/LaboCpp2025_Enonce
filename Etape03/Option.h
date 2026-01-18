@@ -4,10 +4,7 @@
 #include <string> 
 
 namespace carconfig{
-
-
 class Option{
-
 private:
 	std::string code;
 	std::string label;
@@ -30,8 +27,8 @@ public:
 
 	void display() const;
 
-	friend std::istream& operator>>(std::istream& s, Option &o); // cin >> op1
-	friend std::ostream& operator<<(std::ostream& s,const Option &o); // cout << op1
+	friend std::istream& operator>>(std::istream& s, Option &o); 
+	friend std::ostream& operator<<(std::ostream& s,const Option &o); 
 
 	Option operator--();
 	Option operator--(int);

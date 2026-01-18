@@ -39,8 +39,8 @@ public:
 
   void display() const;
 
-  friend std::istream& operator>>(std::istream& s, Model &m); // cin >> m, friend permet d'accéder les variables vu qu'ils sont en private
-  friend std::ostream& operator<<(std::ostream& s, const Model &m); // cout << m
+  friend std::istream& operator>>(std::istream& s, Model &m); 
+  friend std::ostream& operator<<(std::ostream& s, const Model &m); 
   std::string toString() const;
 };
 }

@@ -33,7 +33,6 @@ PasswordException::~PasswordException() noexcept{
 }
 
 void PasswordException::setCode(int c) noexcept{
-	
 	code=c;
 }
 
@@ -42,7 +41,6 @@ int PasswordException::getCode() const noexcept{
 }
 
 void PasswordException::display() const{
-
     Exception::display();
 
 	switch(code)

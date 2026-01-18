@@ -10,7 +10,7 @@ Model::Model()
     std::cout << "On est dans le constructeur par défaut (Model)" << std::endl;
   #endif
 
-  name=NULL; // initialiser le pointeur à "pas d'adresses"
+  name=NULL;
 
   setName("/");
   setPower(0);
@@ -53,8 +53,7 @@ Model::~Model()
     std::cout << "On est dans le destructeur (Model)" << std::endl;
   #endif
 
-  if(name) delete [] name; // on vérifie que le pointeur de name n'est pas nul et on libère la mếmoire, on supprime le tableau de char
-  // les int, float ne réservent rien en mémoire donc rien à libérer
+  if(name) delete [] name; 
 }
 
 
@@ -68,8 +67,6 @@ void Model::setName(const char *n){
 
   name=new char[strlen(n)+1]; 
   strcpy(name, n); 
-
-
 }
 
 void Model::setPower(int p){
@@ -89,22 +86,20 @@ void Model::setBasePrice(float bp){
 
 // ***************** GETTERS du Modèle ****************
 const char* Model::getName() const{
-    return name;
+  return name;
 }
 
 int Model::getPower() const{
-    return power;
+  return power;
 }
 
 Engine   Model::getEngine() const{
-    return engine;
+  return engine;
 }
 
 float Model::getBasePrice() const{
-    return basePrice;
+  return basePrice;
 }
-
-
 
 // ***************** Méthodes d'instance du Modèle ****************
 void Model::display() const
@@ -115,12 +110,10 @@ void Model::display() const
   }
   else{
     std::cout << "Pas de nom ";
-   
   }
     
   std::cout << "( " << power << " Ch, ";
    
-
   switch(engine)
   {
     case Engine::Petrol:
@@ -142,10 +135,8 @@ void Model::display() const
 }
 
 // ***************** Surcharge d'opérateurs flux (<<, >>) ****************
-
-std::istream& operator>>(std::istream& s,Model &m){ // cin >> m
-
-  char name[30]; // on remet des variables car les variables de la classe sont en private donc pas accès pour les modifier 
+std::istream& operator>>(std::istream& s,Model &m){ 
+  char name[30]; 
   int power;
   int engine;
   float basePrice;
@@ -162,7 +153,7 @@ std::istream& operator>>(std::istream& s,Model &m){ // cin >> m
   std::cout << "Prix : ";
   s >> basePrice;
 
-  m.setName(name); // on transmet ce que l'utilisateur a saisi par des setters
+  m.setName(name); 
   m.setPower(power);
 
   switch(engine)
@@ -179,7 +170,6 @@ std::istream& operator>>(std::istream& s,Model &m){ // cin >> m
     case 4:
       m.setEngine(Hybrid);
       break;
-    
   }
   
   m.setBasePrice(basePrice);
@@ -188,7 +178,7 @@ std::istream& operator>>(std::istream& s,Model &m){ // cin >> m
 } 
 
 
-std::ostream& operator<<(std::ostream& s, const Model &m){ // cout << m
+std::ostream& operator<<(std::ostream& s, const Model &m){ 
 
   s << "Model : ";
   if(m.name){
@@ -221,5 +211,4 @@ std::ostream& operator<<(std::ostream& s, const Model &m){ // cout << m
 
   return s;
 } 
-
 }

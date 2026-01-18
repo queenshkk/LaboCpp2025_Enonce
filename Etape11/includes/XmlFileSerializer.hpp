@@ -26,8 +26,8 @@ public:
 	bool isReadable();
 	bool isWritable();
 
-	void write(const T & val); // sérialisation <<
-	T read(); // désérialisarion >>
+	void write(const T & val); 
+	T read(); 
 
 	XmlFileSerializer<T>&operator=(const XmlFileSerializer<T>&)=delete;
 	static const char READ;

@@ -34,15 +34,15 @@ XmlFileSerializer<T>::XmlFileSerializer(const std::string &fn, char m, const std
 		}
 
 		
-		std::getline(file, balise); // en tête XML
+		std::getline(file, balise); 
 
-		while(file.get(c) && c!='<'){ // on avance pour chercher le caractère '<' jusqu'à ce qu'on le trouve
+		while(file.get(c) && c!='<'){ 
 
 		}
 
 		nom="";
 
-		while(file.get(c) && c!='>'){// on lit tout ce qui est entre < et >
+		while(file.get(c) && c!='>'){
 			nom=nom+c;
 		}
 		
@@ -93,7 +93,7 @@ void XmlFileSerializer<T>::write(const T & val){
 		throw XmlFileSerializerException("Impossible --> mode READ",XmlFileSerializerException::NOT_ALLOWED);
 	}
 
-	file << val; // on écrit dans le fichier ce qui est passé en paramètre
+	file << val; 
 }
 
 template<typename T>
@@ -101,15 +101,15 @@ T XmlFileSerializer<T>::read(){
 	T objet;
 	std::streampos pos;
 	std::string ligne, fin;
-	fin="</" + collectionName + ">"; // balise de fin
+	fin="</" + collectionName + ">"; 
 
 	if(!isReadable()){
 		throw XmlFileSerializerException("Impossible --> mode WRITE", XmlFileSerializerException::NOT_ALLOWED);
 	}
 
 
-	pos=file.tellg(); // là où on est actuellement dans le fichier
-	file >> ligne; // on lit la première ligne
+	pos=file.tellg(); 
+	file >> ligne; 
 
 	if(!file){
 		throw XmlFileSerializerException("Fin de fichier", XmlFileSerializerException::END_OF_FILE);
@@ -120,8 +120,8 @@ T XmlFileSerializer<T>::read(){
 		throw XmlFileSerializerException("Balise de fin", XmlFileSerializerException::END_OF_FILE);
 	}
 
-	file.seekg(pos); //on revient là où on était (au debut)
-	file >> objet; // on lit l'objet, ce qu'il y a avant la balise de fin
+	file.seekg(pos); 
+	file >> objet; 
 
 	return objet;
 }

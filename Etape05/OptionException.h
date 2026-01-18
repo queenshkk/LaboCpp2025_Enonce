@@ -5,9 +5,6 @@
 #include <string>
 #include "Exception.h"
 
-//namespace carconfig{
-
-
 class OptionException: public Exception{
 private:
 
@@ -17,8 +14,6 @@ public:
 	OptionException(std:: string msg);
 	OptionException(const OptionException &oe);
 	 ~OptionException() override;
-
-
 };
-//}
+
 #endif

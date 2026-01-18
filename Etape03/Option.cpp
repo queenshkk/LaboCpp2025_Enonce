@@ -48,7 +48,6 @@ void Option::setCode(std::string c){
 }
 
 void Option::setLabel(std::string l){
-
 	label= l;
 }
 
@@ -96,7 +95,7 @@ void Option::display() const{
 
 // ***************** Surcharge d'opérateurs flux (<<, >>) ****************
 
-std::istream& operator>>(std::istream& s, Option &o){ // cin >> op1
+std::istream& operator>>(std::istream& s, Option &o){ 
 	std::string code, label;
 	float price;
 
@@ -118,7 +117,7 @@ std::istream& operator>>(std::istream& s, Option &o){ // cin >> op1
 }
 
 
-std::ostream& operator<<(std::ostream& s,const Option &o){ // cout << op1
+std::ostream& operator<<(std::ostream& s,const Option &o){ 
 
 	if (o.code!=""){
 		s << "Code : " << o.code << "\n"; 
@@ -136,27 +135,23 @@ std::ostream& operator<<(std::ostream& s,const Option &o){ // cout << op1
 
 	s << "Prix option : " << o.price << "\n";
 
-
 	return s;
 
 } 
 
 // ***************** Surcharge d'opérateurs de pré/post-incrémentation (++, --) ****************
 
-Option Option::operator--(){ // pré-incrémentation : on baisse le prix avant d'afficher l'option
-	price = price - 50; 
+Option Option::operator--(){ 
+	price=price-50; 
 
 	return (*this);
 }
 
-Option Option::operator--(int){ // post-incrémentation : on affiche l'option puis on baisse le prix
-	Option op2(*this); // on copie l'objet actuel
-	price = price - 50; 
+Option Option::operator--(int){
+	Option op2(*this); 
+	price=price-50; 
 
 	return op2;
 }
-
-
-
 
 }

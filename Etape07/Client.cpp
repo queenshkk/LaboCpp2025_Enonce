@@ -49,8 +49,6 @@ void Client::display() const{
 }
 
 
-
-
 // ***************** Opérateurs de surcharge ****************
 Client& Client::operator=(const Client &c){
 	if(this==&c) return (*this);
@@ -66,21 +64,21 @@ std::istream& operator>>(std::istream& s, Client &c){
 	std::string balise, ln, fn, i_d, gsm;
 	int id;
 
-	s >> balise; //"<Client>"
-	s >> balise; // "<lastName>"
+	s >> balise; 
+	s >> balise; 
 	s >> ln;
-	s >> balise; // "</lastName>
-	s >> balise; // "<firstName>
+	s >> balise; 
+	s >> balise; 
 	s >> fn;
-	s >> balise; // "</firstName>
-	s >> balise; // "<id>
+	s >> balise; 
+	s >> balise; 
 	s >> i_d;
 	id=std::stoi(i_d);
-	s >> balise; // "</id>
-	s >> balise; // "<gsm>
+	s >> balise; 
+	s >> balise; 
 	s >> gsm;
-	s >> balise; // "</gsm>
-	s >> balise; //"</Client>"
+	s >> balise; 
+	s >> balise; 
 
 	c.setLastName(ln);
 	c.setFirstName(fn);

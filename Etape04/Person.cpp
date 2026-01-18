@@ -39,7 +39,7 @@ Person::~Person(){
 	std::cout << "On est dans le destructeur (Personne)" << std::endl;
 	#endif
 
-} // on ne fait rien car string gère tout
+} 
 
 // ***************** Setters de Personne ****************
 void Person::setLastName(std::string ln){	
@@ -120,8 +120,6 @@ Person& Person::operator=(const Person &p){
 	
 	setLastName(p.getLastName());
 	setFirstName(p.getFirstName());
-
-
 
 	return (*this);
 }
