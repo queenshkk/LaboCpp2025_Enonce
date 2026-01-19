@@ -101,11 +101,12 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
         addAvailableOption(o.getLabel(), o.getPrice());
     }
 
-
-    // Lecture de config.dat, des employees, clients et contrats (étape 12)
-
     setRole();
     MAJtableEmployes();
+    // Lecture de config.dat, des employees, clients et contrats (étape 12)
+    Garage::getInstance().load();
+
+    
 
     // ***** TESTS de l'interfac graphique (à supprimer) *****
     //this->addTupleTableEmployees("12;Coptere;Eli;Vendeur");
@@ -653,6 +654,7 @@ void ApplicGarageWindow::on_actionQuit_triggered()
     // TO DO (étape 12)
 
     cout << ">>> Clic sur item Quitter <<<" << endl;
+    Garage::getInstance().save();
 
     QApplication::exit();
 }
@@ -661,6 +663,7 @@ void ApplicGarageWindow::on_actionQuit_triggered()
 void ApplicGarageWindow::closeEvent(QCloseEvent *event)
 {
     // TO DO (étape 12)
+    Garage::getInstance().save();
 
     cout << ">>> Clic sur croix de fenetre <<<" << endl;
 }

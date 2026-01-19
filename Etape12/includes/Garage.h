@@ -12,6 +12,7 @@
 #include "Car.h"
 #include "OptionException.h"
 #include <sstream>
+#include <cstring>
 
 using carconfig::Model;
 using carconfig::Option;
@@ -73,7 +74,8 @@ public:
 
 	void importModelsFromCsv(std::string filename);
 	void importOptionsFromCsv(std::string filename);
-
+	void save();
+	void load();
 
 };
 

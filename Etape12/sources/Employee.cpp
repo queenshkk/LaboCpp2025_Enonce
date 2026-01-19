@@ -147,21 +147,61 @@ Employee& Employee::operator=(const Employee&e){
 }
 
 std::ostream& operator<<(std::ostream&s, const Employee&e){
-	s << "Nom : " << e.getLastName() << "\n";
-  s << "Prénom : " << e.getFirstName() << "\n";
-  s << "Id : " << e.getId() << "\n";
-  if (e.password!=nullptr){
-  	s << "Password : " << *(e.password) << "\n";
-  }
-	else{
-    	s << "Pas de mdp\n";
+	
+		s << "<Employee>\n";
+    s << "<lastName>\n";
+    s << e.lastName << "\n";
+    s << "</lastName>\n";
+    s << "<firstName>\n";
+    s << e.firstName << "\n";
+    s << "</firstName>\n";
+    s << "<id>\n";
+    s << e.getId() << "\n";
+    s << "</id>\n";
+    s << "<login>\n";
+    s << e.getLogin() << "\n";
+    s << "</login>\n";
+    s << "<role>\n";
+    s << e.getRole() << "\n";
+    s << "</role>\n";
+    s << "</Employee>\n";
 
-	}
-	s << "Login : " << e.login << "\n";
-	s << "Role : " << e.role << "\n";
+    
+    return s;
+}
+
+std::istream& operator>>(std::istream& s, Employee &e){
+	std::string balise, ln, fn, i_d, log, rolee;
+
+	s >> balise; 
+	s >> balise; 
+	s >> ln;
+	s >> balise; 
+	s >> balise;
+	s >> fn;
+	s >> balise; 
+	s >> balise; 
+	s >> i_d;
+	int id=std::stoi(i_d);
+	s >> balise; 
+	s >> balise; 
+	s >> log;
+	s >> balise; 
+	s >> balise; 
+	s >> rolee;
+	s >> balise; 
+	s >> balise; 
+
+
+	e.setLastName(ln);
+	e.setFirstName(fn);
+	e.setId(id);
+	e.setLogin(log);
+	e.setRole(rolee);
 
 	return s;
 }
+
 
 std::string Employee::tuple() const {
   return std::to_string(getId()) + ";" + getLastName() + ";" + getFirstName() + ";" + role;

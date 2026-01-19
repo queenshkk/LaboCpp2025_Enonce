@@ -1,5 +1,8 @@
 #include "Garage.h"
-
+#include "Credentials.h"
+#include "PasswordException.h"
+#include "XmlFileSerializer.hpp"
+#include "XmlFileSerializerException.h"
 
 Garage::Garage(){
 	#ifdef DEBUG
@@ -410,3 +413,160 @@ void Garage::importOptionsFromCsv(std::string filename){
 
 
 int Garage::idLoggedEmployee=-1;
+
+void Garage::save(){
+
+	int currentId, nbEmp, i;
+
+	XmlFileSerializer<Employee> emp("employees.xml", XmlFileSerializer<Employee>::WRITE, "Employees");
+
+    std::set<Employee>::const_iterator itE;
+    for(itE=employees.begin(); itE!=employees.end(); itE++){
+        emp.write(*itE);
+    }
+
+    XmlFileSerializer<Client> cl("clients.xml", XmlFileSerializer<Client>::WRITE, "Clients");
+
+    std::set<Client>::const_iterator itC;
+    for(itC=clients.begin(); itC!=clients.end(); itC++){
+        cl.write(*itC);
+    }
+
+    std::ofstream file;
+    file.open("config.dat", std::ios::binary);
+    if(!file.is_open())
+    {
+        std::cout << "Erreur ouverture en écriture" << std::endl;
+        std::exit(1);
+    }
+
+    currentId=Actor::getCurrentId();
+    file.write((char*)&currentId, sizeof(int));
+
+   	nbEmp=(int)employees.size();
+    file.write((char*)&nbEmp, sizeof(int));
+
+    for(itE=employees.begin(); itE!=employees.end(); itE++)
+    {
+        Credentials c;
+        memset(&c, 0, sizeof(Credentials));
+        std::strcpy(c.login, itE->getLogin().c_str());
+
+        try
+        {
+            std::strcpy(c.password, itE->getPassword().c_str());
+        }
+        catch(const PasswordException &pe)
+        {
+        	pe.display();
+        	c.password[0] = '\0';
+        }
+
+        c.crypt();
+        file.write((char*)&c, sizeof(Credentials));
+    }
+
+    file.close();
+}
+
+void Garage::load(){
+
+	int currentId=0, nbEmp=0, i;
+
+
+	employees.clear();
+    clients.clear();
+
+    try
+    {
+        XmlFileSerializer<Employee> emp("employees.xml",XmlFileSerializer<Employee>::READ, "");
+
+        while(emp.isReadable())
+        {
+            try
+            {
+            	Employee e = emp.read();
+
+                employees.insert(emp.read());
+            }
+            catch(const XmlFileSerializerException &xml)
+            {
+                if(xml.getCode()==XmlFileSerializerException::END_OF_FILE){
+
+                    break;      
+                }
+                else{
+                    throw;
+                }
+            }
+        }
+    }
+    catch(const XmlFileSerializerException &)
+    {
+
+    }
+
+    try
+    {
+        XmlFileSerializer<Client> cl("clients.xml",XmlFileSerializer<Client>::READ,"");
+
+        while(cl.isReadable())
+        {
+            try
+            {
+                Client c =cl.read();
+                clients.insert(c);
+            }
+            catch(const XmlFileSerializerException &ex)
+            {
+                if(ex.getCode()==XmlFileSerializerException::END_OF_FILE)
+                    break;
+                else
+                    throw;
+            }
+        }
+    }
+    catch(const XmlFileSerializerException &)
+    {
+    }
+
+    // ===================== 3) Charger config.dat =====================
+    std::ifstream file("config.dat", std::ios::binary);
+    if(!file.is_open())
+    {
+        return;
+    }
+
+    
+    file.read((char*)&currentId, sizeof(int));
+    file.read((char*)&nbEmp, sizeof(int));
+
+    Actor::setCurrentId(currentId);
+
+    for(i=0; i<nbEmp; i++)
+    {
+        Credentials c;
+        file.read((char*)&c, sizeof(Credentials));
+
+        c.decrypt();
+
+        Employee e=findEmployeeLogin(std::string(c.login));
+
+        if(e.getLogin()!="") 
+        {
+            if(c.password[0] != '\0') 
+            {
+                try
+                {
+                    e.setPassword(std::string(c.password));
+                    updateEmployee(e);
+                }
+                catch(const PasswordException &)
+                {
+                }
+            }
+        }
+    }
+
+    file.close();
+}
