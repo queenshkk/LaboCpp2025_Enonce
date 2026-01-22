@@ -25,6 +25,7 @@ private:
 	std::set<Client> clients;
 	std::list<Model> models;
 	std::list<Option> options;
+	std::list<Contract> contracts;
 
 	static Garage instance;
 	static Car currentProject;
@@ -67,6 +68,10 @@ public:
 
 	void updateEmployee(const Employee &e);
 
+	void addContract(const Contrat &con);
+	void displayAllContract() const;
+	Contract getContract(int index) const;
+	int getNbContract() const;
 
 	static Garage& getInstance();
 	static Car& getCurrentProject();

@@ -16,7 +16,7 @@ XmlFileSerializer<T>::XmlFileSerializer(const std::string &fn, char m, const std
 	#endif
 
 	if(mode==WRITE){
-		file.open(filename, std::ios::out | std::ios::trunc);
+		file.open(filename, std::ios::out);
 		if(!file.is_open()){
 			std::cout << "Erreur ouverture fichier en mode écriture" << std::endl;
 			std::exit(1);
@@ -24,7 +24,7 @@ XmlFileSerializer<T>::XmlFileSerializer(const std::string &fn, char m, const std
 	
 		file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
-		file << "<" << collectionName << "/>\n";
+		file << "<" << collectionName << ">\n";
 	}
 
 	else{
@@ -60,7 +60,7 @@ XmlFileSerializer<T>::~XmlFileSerializer(){
 
 	if (file.is_open()){
 		if (mode==WRITE){
-			file << "</" << collectionName << "/>\n";
+			file << "</" << collectionName << ">\n";
 		}
 
 		file.close();

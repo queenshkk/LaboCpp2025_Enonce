@@ -101,7 +101,7 @@ ApplicGarageWindow::ApplicGarageWindow(QWidget *parent) : QMainWindow(parent),ui
         addAvailableOption(o.getLabel(), o.getPrice());
     }
 
-    setRole();
+    setRole(0);
     MAJtableEmployes();
     // Lecture de config.dat, des employees, clients et contrats (étape 12)
     Garage::getInstance().load();
@@ -763,13 +763,6 @@ void ApplicGarageWindow::on_actionNewOption_triggered()
 
     Car& currentProject=Garage::getCurrentProject(); 
     
-    for(i=0; i<5; i++){
-        Option *o=currentProject[i]; 
-        if(o!=nullptr && o->getCode()==code){
-            dialogError("Erreur", "Option avec ce code existe déjà");
-            return;
-        }
-    }
 
     try{
         Option o(code, label, price);

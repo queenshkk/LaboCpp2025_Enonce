@@ -735,16 +735,6 @@ void ApplicGarageWindow::on_actionNewOption_triggered()
     cout << "label = " << label << endl;
     cout << "price = " << price << endl;
 
-    Car& currentProject=Garage::getCurrentProject(); 
-    
-    for(i=0; i<5; i++){
-        Option *o=currentProject[i]; 
-        if(o!=nullptr && o->getCode()==code){
-            this->dialogError("Erreur", "Option avec ce code existe déjà");
-            return;
-        }
-    }
-
     try{
         Option o(code, label, price);
         Garage::getInstance().addOption(o);

@@ -279,8 +279,8 @@ Employee Garage::findEmployeeById(int id) const{
 int Garage::getNbEmployees() const{
 	return employees.size();
 
-
 }
+
 Employee Garage::findEmployeeLogin(const std::string &login) const
 {
 	std::set<Employee>::const_iterator it;
@@ -292,6 +292,43 @@ Employee Garage::findEmployeeLogin(const std::string &login) const
         }
     }
     return Employee(); 
+}
+
+void Garage::addContract(const Contrat &con){
+	contract.push_back(con);
+	
+}
+
+void Garage::displayAllContract() const{
+	std::list<Contract>::const_iterator it;
+
+	for(it=contract.cbegin(); it!=contract.cend(); it++){
+		std::cout << (*it).toString() << std::endl; 
+	}
+}
+
+Contract::getContract(int index) const{
+	std::list<Contract>::const_iterator it; 
+	it=contract.cbegin(); 
+	int i;
+
+	if(index<0) return Contract();
+
+	for(i=0; i<index; i++, it++){
+		if(it==contract.cend()){
+			return Contract();
+		}
+	}
+
+	if(it==contract.cend()){
+		return Contract();
+	}
+
+	return *it; 
+	
+}
+int Garage::getNbContract() const{
+	return contract.size();
 }
 
 Garage Garage::instance; 
@@ -432,6 +469,14 @@ void Garage::save(){
         cl.write(*itC);
     }
 
+    XmlFileSerializer<Client> con("contract.xml", XmlFileSerializer<Client>::WRITE, "Contrats");
+
+    std::set<Contract>::const_iterator itCon;
+    for(itCon=contract.begin(); itCon!=contract.end(); itCon++){
+        con.write(*itCon);
+    }
+
+
     std::filebuf fichier;
     if (!fichier.open("config.dat",std::ios::out))
     {
@@ -471,39 +516,62 @@ void Garage::load(){
 	employees.clear();
     clients.clear();
 
-    	try{
+	try{
 
 
-	        XmlFileSerializer<Employee> emp("employees.xml",XmlFileSerializer<Employee>::READ, "Employees");
+        XmlFileSerializer<Employee> emp("employees.xml",XmlFileSerializer<Employee>::READ, "Employees");
 
-	        while(emp.isReadable())
-	        {
-	            try{
-	            	Employee e=emp.read();
-	                employees.insert(e);
-	            }
-	            catch(const XmlFileSerializerException &xml){
-	            	std::cout << xml.getMessage() << std::endl;
-	            	break;
-		        }
-	           
+        while(emp.isReadable())
+        {
+            try{
+            	Employee e=emp.read();
+                employees.insert(e);
+            }
+            catch(const XmlFileSerializerException &xml){
+            	std::cout << xml.getMessage() << std::endl;
+            	break;
 	        }
-	    }
-	    catch(const XmlFileSerializerException &xml){
-        	if(xml.getCode()!= XmlFileSerializerException::FILE_NOT_FOUND){
-        		std::cout << xml.getMessage() << std::endl;
-        	}
+           
+        }
+    }
+    catch(const XmlFileSerializerException &xml){
+    	if(xml.getCode()!= XmlFileSerializerException::FILE_NOT_FOUND){
+    		std::cout << xml.getMessage() << std::endl;
+    	}
 
-	    }
+    }
+
+    try{
+        XmlFileSerializer<Client> cl("clients.xml",XmlFileSerializer<Client>::READ,"Clients");
+
+        while(cl.isReadable())
+        {
+            try{
+                Client c=cl.read();
+                clients.insert(c);
+            }catch(const XmlFileSerializerException &xml){
+            	std::cout << xml.getMessage() << std::endl;
+            	break;
+	        }
+            
+            
+        }
+    }
+    catch(const XmlFileSerializerException &xml){
+    	if(xml.getCode()!= XmlFileSerializerException::FILE_NOT_FOUND){
+    		std::cout << xml.getMessage() << std::endl;
+    	}
+        
+	}
     
-	    try{
-	        XmlFileSerializer<Client> cl("clients.xml",XmlFileSerializer<Client>::READ,"Clients");
+    try{
+	        XmlFileSerializer<Client> con("contract.xml",XmlFileSerializer<Client>::READ,"Contract");
 
-	        while(cl.isReadable())
+	        while(con.isReadable())
 	        {
 	            try{
-	                Client c=cl.read();
-	                clients.insert(c);
+	                Contract con=con.read();
+	                contrat.insert(con);
 	            }catch(const XmlFileSerializerException &xml){
 	            	std::cout << xml.getMessage() << std::endl;
 	            	break;
@@ -517,9 +585,8 @@ void Garage::load(){
         		std::cout << xml.getMessage() << std::endl;
         	}
             
-    	}
-    
-    
+    }
+
     std::filebuf fichier;
     if(!fichier.open("config.dat", std::ios::in)){
         return;
