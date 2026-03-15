@@ -1,10 +1,19 @@
-# Projet de C++ pour 2025-2026
+# Garage Management System (C++)
+Application de gestion d'un garage automobile réalisée en C++.
 
-Il s'agit cette année de gérer un **concessionnaire automobile**.
+## Fonctionnalités
+- Gestion des voitures
+- Gestion des clients
+- Gestion des employés
+- Création de contrats
+- Calcul du prix avec options
 
-Les professeurs concernés sont :
-* Wagner Jean-Marc
-* Quettier Patrick
-* Leonard Anne
+## Technologies utilisées
+- C++
 
 
+## Compilation
+g++ *.cpp
+
+## Lancer le programme
+./ApplicGarage
